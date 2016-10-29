@@ -1,0 +1,158 @@
+<html>
+	<head>
+	</head>
+	<body>
+		<div id="content-wrapper">
+			<h1>Sudoku Solver</h1>
+			<p>Welcome to Sudoku Solver!</p>
+			<p>[8,		null,	null,	null,	null,	3,		5,		null,	null	],</p>
+			<p>[null,	3,		7,		null,	null,	null,	null,	null,	null	],</p>
+			<p>[null,	6,		null,	2,		9,		null,	null,	null,	1		],</p>
+
+			<p>[null,	null,	1,		null,	2,		null,	null,	null,	null	],</p>
+			<p>[null,	7,		null,	5,		null,	1,		null,	6,		null	],</p>
+			<p>[null,	null,	null,	null,	6,		null,	8,		null,	null	],</p>
+
+			<p>[7,		null,	null,	null,	3,		9,		null,	5,		null	],</p>
+			<p>[null,	null,	null,	null,	null,	null,	1,		7,		null	],</p>
+			<p>[null,	null,	2,		8,		null,	null,	null,	null,	9		]</p>
+
+		<div id="sudoku-input">
+			<form>
+				<table>
+					<tr>
+						<td><input type="number" name="input00" min="1" max="9" autofocus></td>
+						<td><input type="number" name="input01" min="1" max="9"></td>
+						<td><input type="number" name="input02" min="1" max="9"></td>
+						<td><input type="number" name="input03" min="1" max="9"></td>
+						<td><input type="number" name="input04" min="1" max="9"></td>
+						<td><input type="number" name="input05" min="1" max="9"></td>
+						<td><input type="number" name="input06" min="1" max="9"></td>
+						<td><input type="number" name="input07" min="1" max="9"></td>
+						<td><input type="number" name="input08" min="1" max="9"></td>
+					</tr>
+					<tr>
+						<td><input type="number" name="input10" min="1" max="9"></td>
+						<td><input type="number" name="input11" min="1" max="9"></td>
+						<td><input type="number" name="input12" min="1" max="9"></td>
+						<td><input type="number" name="input13" min="1" max="9"></td>
+						<td><input type="number" name="input14" min="1" max="9"></td>
+						<td><input type="number" name="input15" min="1" max="9"></td>
+						<td><input type="number" name="input16" min="1" max="9"></td>
+						<td><input type="number" name="input17" min="1" max="9"></td>
+						<td><input type="number" name="input18" min="1" max="9"></td>
+					</tr>
+					<tr>
+						<td><input type="number" name="input20" min="1" max="9"></td>
+						<td><input type="number" name="input21" min="1" max="9"></td>
+						<td><input type="number" name="input22" min="1" max="9"></td>
+						<td><input type="number" name="input23" min="1" max="9"></td>
+						<td><input type="number" name="input24" min="1" max="9"></td>
+						<td><input type="number" name="input25" min="1" max="9"></td>
+						<td><input type="number" name="input26" min="1" max="9"></td>
+						<td><input type="number" name="input27" min="1" max="9"></td>
+						<td><input type="number" name="input28" min="1" max="9"></td>
+					</tr>
+					<tr>
+						<td><input type="number" name="input30" min="1" max="9"></td>
+						<td><input type="number" name="input31" min="1" max="9"></td>
+						<td><input type="number" name="input32" min="1" max="9"></td>
+						<td><input type="number" name="input33" min="1" max="9"></td>
+						<td><input type="number" name="input34" min="1" max="9"></td>
+						<td><input type="number" name="input35" min="1" max="9"></td>
+						<td><input type="number" name="input36" min="1" max="9"></td>
+						<td><input type="number" name="input37" min="1" max="9"></td>
+						<td><input type="number" name="input38" min="1" max="9"></td>
+					</tr>
+					<tr>
+						<td><input type="number" name="input40" min="1" max="9"></td>
+						<td><input type="number" name="input41" min="1" max="9"></td>
+						<td><input type="number" name="input42" min="1" max="9"></td>
+						<td><input type="number" name="input43" min="1" max="9"></td>
+						<td><input type="number" name="input44" min="1" max="9"></td>
+						<td><input type="number" name="input45" min="1" max="9"></td>
+						<td><input type="number" name="input46" min="1" max="9"></td>
+						<td><input type="number" name="input47" min="1" max="9"></td>
+						<td><input type="number" name="input48" min="1" max="9"></td>
+					</tr>
+					<tr>
+						<td><input type="number" name="input50" min="1" max="9"></td>
+						<td><input type="number" name="input51" min="1" max="9"></td>
+						<td><input type="number" name="input52" min="1" max="9"></td>
+						<td><input type="number" name="input53" min="1" max="9"></td>
+						<td><input type="number" name="input54" min="1" max="9"></td>
+						<td><input type="number" name="input55" min="1" max="9"></td>
+						<td><input type="number" name="input56" min="1" max="9"></td>
+						<td><input type="number" name="input57" min="1" max="9"></td>
+						<td><input type="number" name="input58" min="1" max="9"></td>
+					</tr>
+					<tr>
+						<td><input type="number" name="input60" min="1" max="9"></td>
+						<td><input type="number" name="input61" min="1" max="9"></td>
+						<td><input type="number" name="input62" min="1" max="9"></td>
+						<td><input type="number" name="input63" min="1" max="9"></td>
+						<td><input type="number" name="input64" min="1" max="9"></td>
+						<td><input type="number" name="input65" min="1" max="9"></td>
+						<td><input type="number" name="input66" min="1" max="9"></td>
+						<td><input type="number" name="input67" min="1" max="9"></td>
+						<td><input type="number" name="input68" min="1" max="9"></td>
+					</tr>
+					<tr>
+						<td><input type="number" name="input70" min="1" max="9"></td>
+						<td><input type="number" name="input71" min="1" max="9"></td>
+						<td><input type="number" name="input72" min="1" max="9"></td>
+						<td><input type="number" name="input73" min="1" max="9"></td>
+						<td><input type="number" name="input74" min="1" max="9"></td>
+						<td><input type="number" name="input75" min="1" max="9"></td>
+						<td><input type="number" name="input76" min="1" max="9"></td>
+						<td><input type="number" name="input77" min="1" max="9"></td>
+						<td><input type="number" name="input78" min="1" max="9"></td>
+					</tr>
+					<tr>
+						<td><input type="number" name="input80" min="1" max="9"></td>
+						<td><input type="number" name="input81" min="1" max="9"></td>
+						<td><input type="number" name="input82" min="1" max="9"></td>
+						<td><input type="number" name="input83" min="1" max="9"></td>
+						<td><input type="number" name="input84" min="1" max="9"></td>
+						<td><input type="number" name="input85" min="1" max="9"></td>
+						<td><input type="number" name="input86" min="1" max="9"></td>
+						<td><input type="number" name="input87" min="1" max="9"></td>
+						<td><input type="number" name="input88" min="1" max="9"></td>
+					</tr>
+				</table>
+				<button type="submit">Submit puzzle for solving</button>
+			</form>
+		<div id="board">
+			<table id="innerHTMLtable" style="border:1px #ccc solid;">
+				<tr>
+					<td id="r0c0"></td><td id="r0c1"></td><td id="r0c2"></td><td id="r0c3"></td><td id="r0c4"></td><td id="r0c5"></td><td id="r0c6"></td><td id="r0c7"></td><td id="r0c8"></td>
+				</tr>
+				<tr>
+					<td id="r1c0"></td><td id="r1c1"></td><td id="r1c2"></td><td id="r1c3"></td><td id="r1c4"></td><td id="r1c5"></td><td id="r1c6"></td><td id="r1c7"></td><td id="r1c8"></td>
+				</tr>
+				<tr>
+					<td id="r2c0"></td><td id="r2c1"></td><td id="r2c2"></td><td id="r2c3"></td><td id="r2c4"></td><td id="r2c5"></td><td id="r2c6"></td><td id="r2c7"></td><td id="r2c8"></td>
+				</tr>
+				<tr>
+					<td id="r3c0"></td><td id="r3c1"></td><td id="r3c2"></td><td id="r3c3"></td><td id="r3c4"></td><td id="r3c5"></td><td id="r3c6"></td><td id="r3c7"></td><td id="r3c8"></td>
+				</tr>
+				<tr>
+					<td id="r4c0"></td><td id="r4c1"></td><td id="r4c2"></td><td id="r4c3"></td><td id="r4c4"></td><td id="r4c5"></td><td id="r4c6"></td><td id="r4c7"></td><td id="r4c8"></td>
+				</tr>
+				<tr>
+					<td id="r5c0"></td><td id="r5c1"></td><td id="r5c2"></td><td id="r5c3"></td><td id="r5c4"></td><td id="r5c5"></td><td id="r5c6"></td><td id="r5c7"></td><td id="r5c8"></td>
+				</tr>
+				<tr>
+					<td id="r6c0"></td><td id="r6c1"></td><td id="r6c2"></td><td id="r6c3"></td><td id="r6c4"></td><td id="r6c5"></td><td id="r6c6"></td><td id="r6c7"></td><td id="r6c8"></td>
+				</tr>
+				<tr>
+					<td id="r7c0"></td><td id="r7c1"></td><td id="r7c2"></td><td id="r7c3"></td><td id="r7c4"></td><td id="r7c5"></td><td id="r7c6"></td><td id="r7c7"></td><td id="r7c8"></td>
+				</tr>
+				<tr>
+					<td id="r8c0"></td><td id="r8c1"></td><td id="r8c2"></td><td id="r8c3"></td><td id="r8c4"></td><td id="r8c5"></td><td id="r8c6"></td><td id="r8c7"></td><td id="r8c8"></td>
+				</tr>
+			</table>
+		</div>
+		<script src="sudokusolver.js"></script>
+	</body>
+</html>
