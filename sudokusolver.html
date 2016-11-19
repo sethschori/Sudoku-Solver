@@ -1,158 +1,354 @@
 <html>
 	<head>
+		<link rel="stylesheet" href="css/style.css">
 	</head>
 	<body>
 		<div id="content-wrapper">
 			<h1>Sudoku Solver</h1>
-			<p>Welcome to Sudoku Solver!</p>
-			<p>[8,		null,	null,	null,	null,	3,		5,		null,	null	],</p>
-			<p>[null,	3,		7,		null,	null,	null,	null,	null,	null	],</p>
-			<p>[null,	6,		null,	2,		9,		null,	null,	null,	1		],</p>
 
-			<p>[null,	null,	1,		null,	2,		null,	null,	null,	null	],</p>
-			<p>[null,	7,		null,	5,		null,	1,		null,	6,		null	],</p>
-			<p>[null,	null,	null,	null,	6,		null,	8,		null,	null	],</p>
+			<h2>Enter a Sudoku puzzle to solve!</h2>
 
-			<p>[7,		null,	null,	null,	3,		9,		null,	5,		null	],</p>
-			<p>[null,	null,	null,	null,	null,	null,	1,		7,		null	],</p>
-			<p>[null,	null,	2,		8,		null,	null,	null,	null,	9		]</p>
+			<p>You can visit <a href="http://www.websudoku.com/" target="_blank">websudoku.com</a> to find <a href="http://www.websudoku.com/?level=1" target="_blank">easy</a>, <a href="http://www.websudoku.com/?level=2" target="_blank">medium</a>, <a href="http://www.websudoku.com/?level=3" target="_blank">hard</a>, and <a href="http://www.websudoku.com/?level=4" target="_blank">evil</a> puzzles for solving.</p>
+
+			<p>Don't want to type in a Sudoku puzzle? Use the Fill in the board button to fill in a sample Sudoku puzzle.</p>
+
+		<div id="solve-a-puzzle" class="clearfix">
 
 		<div id="sudoku-input">
 			<form>
-				<table>
+				<table class="table-outer">
 					<tr>
-						<td><input type="number" name="input00" min="1" max="9" autofocus></td>
-						<td><input type="number" name="input01" min="1" max="9"></td>
-						<td><input type="number" name="input02" min="1" max="9"></td>
-						<td><input type="number" name="input03" min="1" max="9"></td>
-						<td><input type="number" name="input04" min="1" max="9"></td>
-						<td><input type="number" name="input05" min="1" max="9"></td>
-						<td><input type="number" name="input06" min="1" max="9"></td>
-						<td><input type="number" name="input07" min="1" max="9"></td>
-						<td><input type="number" name="input08" min="1" max="9"></td>
+						<td>
+							<table class="table-inner">
+								<tr>
+									<td><input type="number" name="input00" min="1" max="9" autofocus></td>
+									<td><input type="number" name="input01" min="1" max="9""></td>
+									<td><input type="number" name="input02" min="1" max="9"></td>
+								</tr>
+								<tr>
+									<td><input type="number" name="input10" min="1" max="9"></td>
+									<td><input type="number" name="input11" min="1" max="9"></td>
+									<td><input type="number" name="input12" min="1" max="9"></td>
+								</tr>
+								<tr>
+									<td><input type="number" name="input20" min="1" max="9"></td>
+									<td><input type="number" name="input21" min="1" max="9"></td>
+									<td><input type="number" name="input22" min="1" max="9"></td>
+								</tr>
+							</table>
+						</td>
+						<td>
+							<table class="table-inner">
+								<tr>
+									<td><input type="number" name="input03" min="1" max="9"></td>
+									<td><input type="number" name="input04" min="1" max="9"></td>
+									<td><input type="number" name="input05" min="1" max="9"></td>
+								</tr>
+								<tr>
+									<td><input type="number" name="input13" min="1" max="9"></td>
+									<td><input type="number" name="input14" min="1" max="9"></td>
+									<td><input type="number" name="input15" min="1" max="9"></td>
+								</tr>
+								<tr>
+									<td><input type="number" name="input23" min="1" max="9"></td>
+									<td><input type="number" name="input24" min="1" max="9"></td>
+									<td><input type="number" name="input25" min="1" max="9"></td>
+								</tr>
+							</table>
+						</td>
+						<td>
+							<table class="table-inner">
+								<tr>
+									<td><input type="number" name="input06" min="1" max="9"></td>
+									<td><input type="number" name="input07" min="1" max="9"></td>
+									<td><input type="number" name="input08" min="1" max="9"></td>
+								</tr>
+								<tr>
+									<td><input type="number" name="input16" min="1" max="9"></td>
+									<td><input type="number" name="input17" min="1" max="9"></td>
+									<td><input type="number" name="input18" min="1" max="9"></td>
+								</tr>
+								<tr>
+									<td><input type="number" name="input26" min="1" max="9"></td>
+									<td><input type="number" name="input27" min="1" max="9"></td>
+									<td><input type="number" name="input28" min="1" max="9"></td>
+								</tr>
+							</table>
+						</td>
 					</tr>
 					<tr>
-						<td><input type="number" name="input10" min="1" max="9"></td>
-						<td><input type="number" name="input11" min="1" max="9"></td>
-						<td><input type="number" name="input12" min="1" max="9"></td>
-						<td><input type="number" name="input13" min="1" max="9"></td>
-						<td><input type="number" name="input14" min="1" max="9"></td>
-						<td><input type="number" name="input15" min="1" max="9"></td>
-						<td><input type="number" name="input16" min="1" max="9"></td>
-						<td><input type="number" name="input17" min="1" max="9"></td>
-						<td><input type="number" name="input18" min="1" max="9"></td>
+						<td>
+							<table class="table-inner">
+								<tr>
+									<td><input type="number" name="input30" min="1" max="9"></td>
+									<td><input type="number" name="input31" min="1" max="9"></td>
+									<td><input type="number" name="input32" min="1" max="9"></td>
+								</tr>
+								<tr>
+									<td><input type="number" name="input40" min="1" max="9"></td>
+									<td><input type="number" name="input41" min="1" max="9"></td>
+									<td><input type="number" name="input42" min="1" max="9"></td>
+								</tr>
+								<tr>
+									<td><input type="number" name="input50" min="1" max="9"></td>
+									<td><input type="number" name="input51" min="1" max="9"></td>
+									<td><input type="number" name="input52" min="1" max="9"></td>
+								</tr>
+							</table>
+						</td>
+						<td>
+							<table class="table-inner">
+								<tr>
+									<td><input type="number" name="input33" min="1" max="9"></td>
+									<td><input type="number" name="input34" min="1" max="9"></td>
+									<td><input type="number" name="input35" min="1" max="9"></td>
+								</tr>
+								<tr>
+									<td><input type="number" name="input43" min="1" max="9"></td>
+									<td><input type="number" name="input44" min="1" max="9"></td>
+									<td><input type="number" name="input45" min="1" max="9"></td>
+								</tr>
+								<tr>
+									<td><input type="number" name="input53" min="1" max="9"></td>
+									<td><input type="number" name="input54" min="1" max="9"></td>
+									<td><input type="number" name="input55" min="1" max="9"></td>
+								</tr>
+							</table>
+						</td>
+						<td>
+							<table class="table-inner">
+								<tr>
+									<td><input type="number" name="input36" min="1" max="9"></td>
+									<td><input type="number" name="input37" min="1" max="9"></td>
+									<td><input type="number" name="input38" min="1" max="9"></td>
+								</tr>
+								<tr>
+									<td><input type="number" name="input46" min="1" max="9"></td>
+									<td><input type="number" name="input47" min="1" max="9"></td>
+									<td><input type="number" name="input48" min="1" max="9"></td>
+								</tr>
+								<tr>
+									<td><input type="number" name="input56" min="1" max="9"></td>
+									<td><input type="number" name="input57" min="1" max="9"></td>
+									<td><input type="number" name="input58" min="1" max="9"></td>
+								</tr>
+							</table>
+						</td>
 					</tr>
 					<tr>
-						<td><input type="number" name="input20" min="1" max="9"></td>
-						<td><input type="number" name="input21" min="1" max="9"></td>
-						<td><input type="number" name="input22" min="1" max="9"></td>
-						<td><input type="number" name="input23" min="1" max="9"></td>
-						<td><input type="number" name="input24" min="1" max="9"></td>
-						<td><input type="number" name="input25" min="1" max="9"></td>
-						<td><input type="number" name="input26" min="1" max="9"></td>
-						<td><input type="number" name="input27" min="1" max="9"></td>
-						<td><input type="number" name="input28" min="1" max="9"></td>
-					</tr>
-					<tr>
-						<td><input type="number" name="input30" min="1" max="9"></td>
-						<td><input type="number" name="input31" min="1" max="9"></td>
-						<td><input type="number" name="input32" min="1" max="9"></td>
-						<td><input type="number" name="input33" min="1" max="9"></td>
-						<td><input type="number" name="input34" min="1" max="9"></td>
-						<td><input type="number" name="input35" min="1" max="9"></td>
-						<td><input type="number" name="input36" min="1" max="9"></td>
-						<td><input type="number" name="input37" min="1" max="9"></td>
-						<td><input type="number" name="input38" min="1" max="9"></td>
-					</tr>
-					<tr>
-						<td><input type="number" name="input40" min="1" max="9"></td>
-						<td><input type="number" name="input41" min="1" max="9"></td>
-						<td><input type="number" name="input42" min="1" max="9"></td>
-						<td><input type="number" name="input43" min="1" max="9"></td>
-						<td><input type="number" name="input44" min="1" max="9"></td>
-						<td><input type="number" name="input45" min="1" max="9"></td>
-						<td><input type="number" name="input46" min="1" max="9"></td>
-						<td><input type="number" name="input47" min="1" max="9"></td>
-						<td><input type="number" name="input48" min="1" max="9"></td>
-					</tr>
-					<tr>
-						<td><input type="number" name="input50" min="1" max="9"></td>
-						<td><input type="number" name="input51" min="1" max="9"></td>
-						<td><input type="number" name="input52" min="1" max="9"></td>
-						<td><input type="number" name="input53" min="1" max="9"></td>
-						<td><input type="number" name="input54" min="1" max="9"></td>
-						<td><input type="number" name="input55" min="1" max="9"></td>
-						<td><input type="number" name="input56" min="1" max="9"></td>
-						<td><input type="number" name="input57" min="1" max="9"></td>
-						<td><input type="number" name="input58" min="1" max="9"></td>
-					</tr>
-					<tr>
-						<td><input type="number" name="input60" min="1" max="9"></td>
-						<td><input type="number" name="input61" min="1" max="9"></td>
-						<td><input type="number" name="input62" min="1" max="9"></td>
-						<td><input type="number" name="input63" min="1" max="9"></td>
-						<td><input type="number" name="input64" min="1" max="9"></td>
-						<td><input type="number" name="input65" min="1" max="9"></td>
-						<td><input type="number" name="input66" min="1" max="9"></td>
-						<td><input type="number" name="input67" min="1" max="9"></td>
-						<td><input type="number" name="input68" min="1" max="9"></td>
-					</tr>
-					<tr>
-						<td><input type="number" name="input70" min="1" max="9"></td>
-						<td><input type="number" name="input71" min="1" max="9"></td>
-						<td><input type="number" name="input72" min="1" max="9"></td>
-						<td><input type="number" name="input73" min="1" max="9"></td>
-						<td><input type="number" name="input74" min="1" max="9"></td>
-						<td><input type="number" name="input75" min="1" max="9"></td>
-						<td><input type="number" name="input76" min="1" max="9"></td>
-						<td><input type="number" name="input77" min="1" max="9"></td>
-						<td><input type="number" name="input78" min="1" max="9"></td>
-					</tr>
-					<tr>
-						<td><input type="number" name="input80" min="1" max="9"></td>
-						<td><input type="number" name="input81" min="1" max="9"></td>
-						<td><input type="number" name="input82" min="1" max="9"></td>
-						<td><input type="number" name="input83" min="1" max="9"></td>
-						<td><input type="number" name="input84" min="1" max="9"></td>
-						<td><input type="number" name="input85" min="1" max="9"></td>
-						<td><input type="number" name="input86" min="1" max="9"></td>
-						<td><input type="number" name="input87" min="1" max="9"></td>
-						<td><input type="number" name="input88" min="1" max="9"></td>
+						<td>
+							<table class="table-inner">
+								<tr>
+									<td><input type="number" name="input60" min="1" max="9"></td>
+									<td><input type="number" name="input61" min="1" max="9"></td>
+									<td><input type="number" name="input62" min="1" max="9"></td>
+								</tr>
+								<tr>
+									<td><input type="number" name="input70" min="1" max="9"></td>
+									<td><input type="number" name="input71" min="1" max="9"></td>
+									<td><input type="number" name="input72" min="1" max="9"></td>
+								</tr>
+								<tr>
+									<td><input type="number" name="input80" min="1" max="9"></td>
+									<td><input type="number" name="input81" min="1" max="9"></td>
+									<td><input type="number" name="input82" min="1" max="9"></td>
+								</tr>
+							</table>
+						</td>
+						<td>
+							<table class="table-inner">
+								<tr>
+									<td><input type="number" name="input63" min="1" max="9"></td>
+									<td><input type="number" name="input64" min="1" max="9"></td>
+									<td><input type="number" name="input65" min="1" max="9"></td>
+								</tr>
+								<tr>
+									<td><input type="number" name="input73" min="1" max="9"></td>
+									<td><input type="number" name="input74" min="1" max="9"></td>
+									<td><input type="number" name="input75" min="1" max="9"></td>
+								</tr>
+								<tr>
+									<td><input type="number" name="input83" min="1" max="9"></td>
+									<td><input type="number" name="input84" min="1" max="9"></td>
+									<td><input type="number" name="input85" min="1" max="9"></td>
+								</tr>
+							</table>
+						</td>
+						<td>
+							<table class="table-inner">
+								<tr>
+									<td><input type="number" name="input66" min="1" max="9"></td>
+									<td><input type="number" name="input67" min="1" max="9"></td>
+									<td><input type="number" name="input68" min="1" max="9"></td>
+								</tr>
+								<tr>
+									<td><input type="number" name="input76" min="1" max="9"></td>
+									<td><input type="number" name="input77" min="1" max="9"></td>
+									<td><input type="number" name="input78" min="1" max="9"></td>
+								</tr>
+								<tr>
+									<td><input type="number" name="input86" min="1" max="9"></td>
+									<td><input type="number" name="input87" min="1" max="9"></td>
+									<td><input type="number" name="input88" min="1" max="9"></td>
+								</tr>
+							</table>
+						</td>
 					</tr>
 				</table>
-				<button type="submit">Submit puzzle for solving</button>
+				<button type="button" id="fillInPuzzle" title="Fill in a sample puzzle">Fill in the board</button>
+				<button type="button" id="submitPuzzle" title="Solve the puzzle">Solve it!</button>
+				<button type="reset" id="resetPuzzle" title="Clear the board and start over">Clear</button>
 			</form>
+		</div>
+
 		<div id="board">
-			<table id="innerHTMLtable" style="border:1px #ccc solid;">
+			<table id="innerHTMLtable" class="table-outer">
 				<tr>
-					<td id="r0c0"></td><td id="r0c1"></td><td id="r0c2"></td><td id="r0c3"></td><td id="r0c4"></td><td id="r0c5"></td><td id="r0c6"></td><td id="r0c7"></td><td id="r0c8"></td>
+					<td>
+						<table class="table-inner">
+							<tr>
+								<td id="r0c0"></td><td id="r0c1"></td><td id="r0c2"></td>
+							</tr>
+							<tr>
+								<td id="r1c0"></td><td id="r1c1"></td><td id="r1c2"></td>
+							</tr>
+							<tr>
+								<td id="r2c0"></td><td id="r2c1"></td><td id="r2c2"></td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table class="table-inner">
+							<tr>
+								<td id="r0c3"></td><td id="r0c4"></td><td id="r0c5"></td>
+							</tr>
+							<tr>
+								<td id="r1c3"></td><td id="r1c4"></td><td id="r1c5"></td>
+							</tr>
+							<tr>
+								<td id="r2c3"></td><td id="r2c4"></td><td id="r2c5"></td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table class="table-inner">
+							<tr>
+								<td id="r0c6"></td><td id="r0c7"></td><td id="r0c8"></td>
+							</tr>
+							<tr>
+								<td id="r1c6"></td><td id="r1c7"></td><td id="r1c8"></td>
+							</tr>
+							<tr>
+								<td id="r2c6"></td><td id="r2c7"></td><td id="r2c8"></td>
+							</tr>
+						</table>
+					</td>
 				</tr>
 				<tr>
-					<td id="r1c0"></td><td id="r1c1"></td><td id="r1c2"></td><td id="r1c3"></td><td id="r1c4"></td><td id="r1c5"></td><td id="r1c6"></td><td id="r1c7"></td><td id="r1c8"></td>
+					<td>
+						<table class="table-inner">
+							<tr>
+								<td id="r3c0"></td><td id="r3c1"></td><td id="r3c2"></td>
+							</tr>
+							<tr>
+								<td id="r4c0"></td><td id="r4c1"></td><td id="r4c2"></td>
+							</tr>
+							<tr>
+								<td id="r5c0"></td><td id="r5c1"></td><td id="r5c2"></td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table class="table-inner">
+							<tr>
+								<td id="r3c3"></td><td id="r3c4"></td><td id="r3c5"></td>
+							</tr>
+							<tr>
+								<td id="r4c3"></td><td id="r4c4"></td><td id="r4c5"></td>
+							</tr>
+							<tr>
+								<td id="r5c3"></td><td id="r5c4"></td><td id="r5c5"></td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table class="table-inner">
+							<tr>
+								<td id="r3c6"></td><td id="r3c7"></td><td id="r3c8"></td>
+							</tr>
+							<tr>
+								<td id="r4c6"></td><td id="r4c7"></td><td id="r4c8"></td>
+							</tr>
+							<tr>
+								<td id="r5c6"></td><td id="r5c7"></td><td id="r5c8"></td>
+							</tr>
+						</table>
+					</td>
 				</tr>
 				<tr>
-					<td id="r2c0"></td><td id="r2c1"></td><td id="r2c2"></td><td id="r2c3"></td><td id="r2c4"></td><td id="r2c5"></td><td id="r2c6"></td><td id="r2c7"></td><td id="r2c8"></td>
-				</tr>
-				<tr>
-					<td id="r3c0"></td><td id="r3c1"></td><td id="r3c2"></td><td id="r3c3"></td><td id="r3c4"></td><td id="r3c5"></td><td id="r3c6"></td><td id="r3c7"></td><td id="r3c8"></td>
-				</tr>
-				<tr>
-					<td id="r4c0"></td><td id="r4c1"></td><td id="r4c2"></td><td id="r4c3"></td><td id="r4c4"></td><td id="r4c5"></td><td id="r4c6"></td><td id="r4c7"></td><td id="r4c8"></td>
-				</tr>
-				<tr>
-					<td id="r5c0"></td><td id="r5c1"></td><td id="r5c2"></td><td id="r5c3"></td><td id="r5c4"></td><td id="r5c5"></td><td id="r5c6"></td><td id="r5c7"></td><td id="r5c8"></td>
-				</tr>
-				<tr>
-					<td id="r6c0"></td><td id="r6c1"></td><td id="r6c2"></td><td id="r6c3"></td><td id="r6c4"></td><td id="r6c5"></td><td id="r6c6"></td><td id="r6c7"></td><td id="r6c8"></td>
-				</tr>
-				<tr>
-					<td id="r7c0"></td><td id="r7c1"></td><td id="r7c2"></td><td id="r7c3"></td><td id="r7c4"></td><td id="r7c5"></td><td id="r7c6"></td><td id="r7c7"></td><td id="r7c8"></td>
-				</tr>
-				<tr>
-					<td id="r8c0"></td><td id="r8c1"></td><td id="r8c2"></td><td id="r8c3"></td><td id="r8c4"></td><td id="r8c5"></td><td id="r8c6"></td><td id="r8c7"></td><td id="r8c8"></td>
+					<td>
+						<table class="table-inner">
+							<tr>
+								<td id="r6c0"></td><td id="r6c1"></td><td id="r6c2"></td>
+							</tr>
+							<tr>
+								<td id="r7c0"></td><td id="r7c1"></td><td id="r7c2"></td>
+							</tr>
+							<tr>
+								<td id="r8c0"></td><td id="r8c1"></td><td id="r8c2"></td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table class="table-inner">
+							<tr>
+								<td id="r6c3"></td><td id="r6c4"></td><td id="r6c5"></td>
+							</tr>
+							<tr>
+								<td id="r7c3"></td><td id="r7c4"></td><td id="r7c5"></td>
+							</tr>
+							<tr>
+								<td id="r8c3"></td><td id="r8c4"></td><td id="r8c5"></td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table class="table-inner">
+							<tr>
+								<td id="r6c6"></td><td id="r6c7"></td><td id="r6c8"></td>
+							</tr>
+							<tr>
+								<td id="r7c6"></td><td id="r7c7"></td><td id="r7c8"></td>
+							</tr>
+							<tr>
+								<td id="r8c6"></td><td id="r8c7"></td><td id="r8c8"></td>
+							</tr>
+						</table>
+					</td>
 				</tr>
 			</table>
 		</div>
+
+</div> <!-- close solve-a-puzzle -->
+
+		<div id = "background-info">
+			<h2>About Sudoku Solver</h2>
+
+			<p><strong>About Sudoku:</strong> The Sudoku board is a 9x9 grid of 81 cells. At the start of a Sudoku game, numerous cells on the board are blank and the goal is to fill each cell with a single digit between 1 and 9. Each of the 9 rows and each of the 9 columns in the grid must contain each digit from 1 to 9 without duplication. Additionally, the board is subdivided into 9 nonets. A nonet is a 3x3 quadrant within the Sudoku grid, with each nonet containing 9 cells. The final requirement is that each nonet must contain each digit from 1 to 9 without duplication.</p>
+
+			<p><strong>How Sudoku Solver works:</strong> Sudoku Solver solves Sudoku puzzles by following the same Sudoku rules that human players must follow (i.e. it doesn't test multiple possibilities or use brute force approaches). The reasons for taking this approach are 1) it enabled me learn how to translate rules of play into JavaScript functions and 2) in the future I may evolve this program to demonstrate to the user how it is solving the board.</p>
+
+			<p><strong>Techniques used:</strong> I am grateful to kristanix.com for the <a href="https://www.kristanix.com/sudokuepic/sudoku-solving-techniques.php">Suduko-solving techniques</a> which I have used in this program, and I have used the techniques' names as the names of functions in the JavaScript program. Sudoku Solver uses three techniques from kristanix.com to solve the Sudoku puzzles: Sole Candidate, Unique Candidate, and Naked Subset.</p>
+
+			<ul>
+				<li><strong>Sole Candidate:</strong> Given a blank cell on the board, check whether eight values are already present in the nonet, row, and column. If so, the "missing" ninth value must be the solution to that cell.</li>
+				<li><strong>Unique Candidate:</strong> Check whether there is a number which -- by virtue of being in other columns and rows on the board -- can only be valid in one cell. If so, that must be the solution to that cell.</li>
+				<li><strong>Naked Subset:</strong> This approach rules out potential candidate values for a given cell by checking whether there are two pairs of the same candidate values that appear for two different cells within a given row or column. If so, then those two values must be placed in those two cells and those values can be removed as possible candidate values for other cells within the given row or column.</li>
+			</ul>
+
+		</div>
+
 		<script src="sudokusolver.js"></script>
+
 	</body>
 </html>

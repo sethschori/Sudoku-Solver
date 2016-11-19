@@ -2,99 +2,15 @@
 
 SudokuSolver.js solves Sudoku puzzles by following the same Sudoku rules that human players
 must follow (i.e. it doesn't test multiple possibilities or use brute force approaches).
-The reasons for taking this approach are 1) it lets me learn how to translate rules of play 
-into JavaScript functions and 2) if I evolve this program to have an actual UI then it could
-demonstrate to the user how it is solving the board.
 
-In its current form this program only solves easy and medium difficulty Sudoku puzzles. I plan
-to integrate more algorithms into the program so that it will solve a greater range of puzzles
-and, perhaps, someday will solve any Sudoku puzzle.
-
-The Sudoku board is a 9x9 grid of 81 cells. At the start of a Sudoku game, numerous cells on 
-the board are blank and the goal is to fill each cell with a single digit between 1 and 9. 
-Each of the 9 rows and each of the 9 columns in the grid must contain each digit from 1 to 9
-without duplication. Additionally, the board is subdivided into 9 nonets. A nonet is a 3x3 
-quadrant within the Sudoku grid, with each nonet containing 9 cells. The final requirement 
-is that each nonet must contain each digit from 1 to 9 without duplication.
-
-An approach to solving easy Sudoku puzzles is to examine each cell on the board and to search for
-a cell where 8 of the 9 possible digits are already present within that cell's row, column,
-and nonet. Once that cell has been found the remaining ninth digit is the logical only result
-for that cell. This is a process of elimination which can be repeated for all cells on the 
-board until the entire board has been filled in.
-
-This program uses that approach and loops through all nonets from 0 through 8. It checks to
-see whether that nonet has already been solved. If it has not been solved then it loops 
-through all of the cells in that nonet, testing to see whether any of them can be solved, and
-repeats this process until all of the nonets have been completed.
-
-This program can only solve one Sudoku puzzle which is hard-coded into an array variable. It 
-outputs the solution to the console. 
-
-Future upgrade plans include: displaying the puzzle on the screen instead of the console and 
-allowing users to input their own puzzle which can then be solved. Another upgrade idea is to 
-have the program generate random Sudoku puzzles as well.
-
-Credit to kristanix.com for Suduko-solving techniques which I have used in this program,
-along with using the techniques' names as function names in this program:
-https://www.kristanix.com/sudokuepic/sudoku-solving-techniques.php
+Credit to https://www.kristanix.com/sudokuepic/sudoku-solving-techniques.php for the Suduko-
+solving techniques which I have used in this program, and I have used the techniques' names 
+as the names for three functions in this program: Sole Candidate, Unique Candidate, and 
+Naked Subset.
 
 =========================================================================================== */
 
-// The board variable holds the Sudoku puzzle that will be solved.
-// Credit to websudoku.com for the three Sudoku puzzles below.
-
-// Evil-level board from websudoku.com 
-// var board = [	[8,		null,	null,	null,	null,	3,		5,		null,	null	],
-// 				[null,	3,		7,		null,	null,	null,	null,	null,	null	],
-// 				[null,	6,		null,	2,		9,		null,	null,	null,	1		],
-
-// 				[null,	null,	1,		null,	2,		null,	null,	null,	null	],
-// 				[null,	7,		null,	5,		null,	1,		null,	6,		null	],
-// 				[null,	null,	null,	null,	6,		null,	8,		null,	null	],
-
-// 				[7,		null,	null,	null,	3,		9,		null,	5,		null	],
-// 				[null,	null,	null,	null,	null,	null,	1,		7,		null	],
-// 				[null,	null,	2,		8,		null,	null,	null,	null,	9		]	];
-
-// Hard-level board from websudoku.com
-var board = [	[null,	7,		null,	null,	9,		null,	3,		null,	null	],
-				[null,	null,	null,	null,	8,		2,		null,	5,		4		],
-				[1,		5,		null,	null,	null,	null,	8,		null,	null	],
-
-				[9,		null,	null,	null,	null,	4,		1,		2,		null	],
-				[null,	null,	null,	null,	null,	null,	null,	null,	null	],
-				[null,	3,		1,		9,		null,	null,	null,	null,	7		],
-
-				[null,	null,	9,		null,	null,	null,	null,	3,		8		],
-				[2,		1,		null,	8,		4,		null,	null,	null,	null	],
-				[null,	null,	7,		null,	3,		null,	null,	6,		null	]	];
-
-// Medium-level board from websudoku.com
-// var board = [	[1,		null,	null,	null,	4,		null,	8,		null,	2		],
-// 				[2,		null,	null,	null,	null,	1,		null,	null,	null	],
-// 				[null,	null,	7,		3,		null,	null,	4,		1,		null	],
-
-// 				[null,	null,	2,		null,	1,		null,	null,	null,	6		],
-// 				[null,	4,		null,	null,	8,		null,	null,	5,		null	],
-// 				[3,		null,	null,	null,	6,		null,	2,		null,	null	],
-
-// 				[null,	2,		5,		null,	null,	7,		6,		null,	null	],
-// 				[null,	null,	null,	6,		null,	null,	null,	null,	4		],
-// 				[7,		null,	6,		null,	3,		null,	null,	null,	8		]	];
-
-// Easy-level board from websudoku.com
-// var board = [	[5,		null,	null,	8,		null,	null,	null,	7,		1		],
-// 				[1,		null,	null,	2,		null,	6,		9,		null,	4		],
-// 				[2,		8,		null,	null,	1,		null,	null,	null,	null	],
-
-// 				[null,	1,		8,		null,	null,	null,	null,	null,	7		],
-// 				[null,	4,		null,	null,	null,	null,	null,	6,		null	],
-// 				[9,		null,	null,	null,	null,	null,	5,		4,		null	],
-
-// 				[null,	null,	null,	null,	4,		null,	null,	2,		5		],
-// 				[4,		null,	6,		1,		null,	2,		null,	null,	9		],
-// 				[7,		3,		null,	null,	null,	9,		null,	null,	6		]	];
+var board = [];
 
 // load the sdk functions so they can be called when needed
 exportSDK();
@@ -177,7 +93,7 @@ function uniqueCandidate(nonet, currentRow, currentCol) {
 			for (var row = nonetProperties.startRow; row <= nonetProperties.startRow + 2; row++) {
 				for (var col = nonetProperties.startCol; col <= nonetProperties.startCol + 2; col++) {
 					if (!board[row][col]) {
-						// console.log("WE'RE EVALUATING A BLANK CELL");
+						// console.log("WE'RE EVALUATING A BLANK CELL: r"+row+"c"+col);
 						// console.log("winnerFlag:",winnerFlag);
 						// console.log("row: ",row,"col: ",col,board[row][col]);
 						// console.log("row"+row+" vals: ",nonetProperties["row"+row]);
@@ -225,13 +141,21 @@ function nakedSubset() {
 						var nextRowCol = "r" + row + "c" + nextCol;
 						if (trackerObj[nextRowCol].length === 2) {
 							if (trackerObj[currentRowCol][0] === trackerObj[nextRowCol][0] && trackerObj[currentRowCol][1] === trackerObj[nextRowCol][1]) {
+								console.log("trackerObj[currentRowCol:"+currentRowCol+"][0]:", trackerObj[currentRowCol][0],"trackerObj[nextRowCol:"+nextRowCol+"][0]:",trackerObj[nextRowCol][0], "trackerObj[currentRowCol:"+currentRowCol+"][1]:",trackerObj[currentRowCol][1], "trackerObj[nextRowCol:"+nextRowCol+"][1]:",trackerObj[nextRowCol][1]);
 								// if so, loop through the cells in this row again
 								for (var colRemoval = 0; colRemoval <= 8; colRemoval++) {
 									// and remove the potentialSubset values as candidates for other cells within that row
 									var removalRowCol = "r" + row + "c" + colRemoval;
+									// first, find a cell that has more than two possible candidate values
 									if (trackerObj[removalRowCol].length > 2) {
-										console.log("going to remove Naked Subset", potentialSubset, "at:",removalRowCol);
-										trackerObj[removalRowCol] = sdk.trackerObjRemove(removalRowCol, potentialSubset);
+										// then check that both values in potentialSubset are present in removalRowCol
+										if (trackerObj[removalRowCol].indexOf(potentialSubset[0]) !== -1 && trackerObj[removalRowCol].indexOf(potentialSubset[1]) !== -1 ) {
+											sdk.printTrackerObj();
+											console.log("going to remove Naked Subset", potentialSubset, "at:",removalRowCol);
+											trackerObj[removalRowCol] = sdk.trackerObjRemove(removalRowCol, potentialSubset);
+											console.log("going to run trackerObjUpdate because candidates were removed");
+											sdk.trackerObjUpdate();
+										}
 									}
 								}
 							}
@@ -252,16 +176,24 @@ function nakedSubset() {
 					// see if that pair of values is the same pair of values for another cell further along in that column
 					potentialSubset = trackerObj[currentRowCol];
 					for (var nextRow = row + 1; nextRow <= 8; nextRow++) {
-						var nextRowCol = "r" + row + "c" + nextRow;
+						var nextRowCol = "r" + nextRow + "c" + col;
 						if (trackerObj[nextRowCol].length === 2) {
 							if (trackerObj[currentRowCol][0] === trackerObj[nextRowCol][0] && trackerObj[currentRowCol][1] === trackerObj[nextRowCol][1]) {
+								console.log("trackerObj[currentRowCol:"+currentRowCol+"][0]:", trackerObj[currentRowCol][0],"trackerObj[nextRowCol:"+nextRowCol+"][0]:",trackerObj[nextRowCol][0], "trackerObj[currentRowCol:"+currentRowCol+"][1]:",trackerObj[currentRowCol][1], "trackerObj[nextRowCol:"+nextRowCol+"][1]:",trackerObj[nextRowCol][1]);
 								// if so, loop through the cells in this column again
 								for (var rowRemoval = 0; rowRemoval <= 8; rowRemoval++) {
 									// and remove the potentialSubset values as candidates for other cells within that column
 									var removalRowCol = "r" + row + "c" + rowRemoval;
+									// first, find a cell that has more than two possible candidate values
 									if (trackerObj[removalRowCol].length > 2) {
-										console.log("going to remove Naked Subset", potentialSubset, "at:",removalRowCol);
-										trackerObj[removalRowCol] = sdk.trackerObjRemove(removalRowCol, potentialSubset);
+										// then check that both values in potentialSubset are present in removalRowCol
+										if (trackerObj[removalRowCol].indexOf(potentialSubset[0]) !== -1 && trackerObj[removalRowCol].indexOf(potentialSubset[1]) !== -1 ) {
+											sdk.printTrackerObj();
+											console.log("going to remove Naked Subset", potentialSubset, "at:",removalRowCol);
+											trackerObj[removalRowCol] = sdk.trackerObjRemove(removalRowCol, potentialSubset);
+											console.log("going to run trackerObjUpdate because candidates were removed");
+											sdk.trackerObjUpdate();
+										}
 									}
 								}
 							}
@@ -279,34 +211,24 @@ function nakedSubset() {
 // them have been filled in.
 function solveIt() {
 	var passes = 0;
-	while (nonetsStatus.indexOf(false) !== -1 && passes < 5) {
+	while (nonetsStatus.indexOf(false) !== -1 && passes < 16) {
 		console.log("Trying Sole Candidate approach.")
 		sdk.loopNonets(soleCandidate);
-		sdk.wait(200);
-		sdk.printBoard();
 		sdk.printBoardConsole();
-		console.log("Trying Unique Candidate approach.")
 		sdk.loopNonets(uniqueCandidate);
-		sdk.wait(200);
-		sdk.printBoard();
 		sdk.printBoardConsole();
-		console.log("Trying Naked Subset approach.")
 		sdk.trackerObjUpdate();
 		nakedSubset();
+		console.log("finished nakedSubset");
+		sdk.printBoardConsole();
+		console.log("starting trackerObjCheck");
 		sdk.trackerObjCheck();
-		sdk.wait(200);
-		sdk.printBoard();
+		console.log("finished trackerObjCheck");
 		sdk.printBoardConsole();
 		passes++;
 	}
+	sdk.printBoard();
 }
-
-
-console.log("\n\n");
-
-// Print the solved puzzle to the console.
-// sdk.printBoard();
-
 
 /* ====================================================================================================================
 
@@ -324,19 +246,6 @@ function exportSDK() {
 
 	sdk = { 
 
-		// Credit for pausecomp goes to http://www.sean.co.uk/a/webdesign/javascriptdelay.shtm
-		// I copy/pasted it from that webpage when I was looking for a way to delay "writing" to the webpage.
-		pausecomp: function(ms)  {
-			ms += new Date().getTime();
-			while (new Date() < ms){}
-		},
-
-		wait: function(countTo) {
-			console.log("waiting for",countTo);
-			for (var i = 0; i <= countTo; i++) {
-			}
-		},
-
 		// printBoard prints the board to the screen.
 		printBoard: function() {
 		    var output;
@@ -352,7 +261,7 @@ function exportSDK() {
 			}
 		},
 
-		// // printBoardConsole prints the board to the console.
+		// printBoardConsole prints the board to the console. It's only used for testing and development of the program.
 		printBoardConsole: function() {
 			for (var i = 0; i <= 8; i++) {
 				console.log(board[i].join("\t"));
@@ -422,6 +331,7 @@ function exportSDK() {
 					var valueToWrite = trackerObj[keys][0];
 					var row = keys[1];
 					var col = keys[3];
+					console.log("going to write",valueToWrite,"to row",row,"col",col,"because there was a single candidate value there");
 					board[row][col] = valueToWrite;
 				}
 			}
@@ -547,14 +457,37 @@ function exportSDK() {
 
 };
 
+function resetPlaySpace() {
+	exportSDK();
+	var currentRow;
+	var currentCol;
+	boardSubmitted = [];
+	nonetsStatus = [false, false, false, false, false, false, false, false, false];
+	trackerObj = {};
+	sdk.trackerObjDefaults();
+	board = [
+			 [null,null,null,null,null,null,null,null,null,],
+			 [null,null,null,null,null,null,null,null,null,],
+			 [null,null,null,null,null,null,null,null,null,],
+			 [null,null,null,null,null,null,null,null,null,],
+			 [null,null,null,null,null,null,null,null,null,],
+			 [null,null,null,null,null,null,null,null,null,],
+			 [null,null,null,null,null,null,null,null,null,],
+			 [null,null,null,null,null,null,null,null,null,],
+			 [null,null,null,null,null,null,null,null,null,],
+			];
+	submitPuzzle.disabled = false;
+	boardToDisplay.style.display = "none";
+}
 
 var form = document.querySelector("form");
+var boardToDisplay = document.getElementById("board");
 var cellSubmitted;
 var cellValue;
-form.addEventListener("submit", function(event) {
+var submitPuzzle = document.getElementById("submitPuzzle");
+submitPuzzle.addEventListener("click", function(event) {
 	boardSubmitted = [];
 	exportSDK();
-	console.log(sdk);
 	for (var formRow = 0; formRow <= 8; formRow++) {
 		var rowSubmitted = [];
 		for (var formCol = 0; formCol <= 8; formCol++) {
@@ -569,10 +502,86 @@ form.addEventListener("submit", function(event) {
 		}
 		boardSubmitted.push(rowSubmitted);
 	}
-	event.preventDefault();
-	console.log("boardSubmitted:", boardSubmitted);
+	// event.preventDefault(); // This line was only needed when the button was a "submit" button. It has been changed to a "button" button.
 	board = boardSubmitted.slice();
-	console.log("board:",board);
-	console.log("trackerObj:",trackerObj);
+	boardToDisplay.style.display = "block";
 	solveIt();
-}); // close the form.addEventListener anonymous function
+	submitPuzzle.disabled = true;
+}, false); // close the form.addEventListener anonymous function
+
+var resetPuzzle = document.getElementById("resetPuzzle");
+resetPuzzle.addEventListener("click", function(event) {
+	resetPlaySpace();
+	form.elements.input00.focus();
+	sdk.printBoard();
+});
+
+var fillInPuzzle = document.getElementById("fillInPuzzle");
+fillInPuzzle.addEventListener("click", function(event) {
+	resetPlaySpace();
+	// "evil" sample board
+	var sampleBoard =	
+
+						// // Evil-level sample board from websudoku.com
+						// [
+						// 	[8,		null,	null,	null,	null,	3,		5,		null,	null	],
+						// 	[null,	3,		7,		null,	null,	null,	null,	null,	null	],
+						// 	[null,	6,		null,	2,		9,		null,	null,	null,	1		],
+
+						// 	[null,	null,	1,		null,	2,		null,	null,	null,	null	],
+						// 	[null,	7,		null,	5,		null,	1,		null,	6,		null	],
+						// 	[null,	null,	null,	null,	6,		null,	8,		null,	null	],
+
+						// 	[7,		null,	null,	null,	3,		9,		null,	5,		null	],
+						// 	[null,	null,	null,	null,	null,	null,	1,		7,		null	],
+						// 	[null,	null,	2,		8,		null,	null,	null,	null,	9		]
+						// ];
+
+						// Hard-level board from websudoku.com
+						[
+						[null,	7,		null,	null,	9,		null,	3,		null,	null	],
+						[null,	null,	null,	null,	8,		2,		null,	5,		4		],
+						[1,		5,		null,	null,	null,	null,	8,		null,	null	],
+
+						[9,		null,	null,	null,	null,	4,		1,		2,		null	],
+						[null,	null,	null,	null,	null,	null,	null,	null,	null	],
+						[null,	3,		1,		9,		null,	null,	null,	null,	7		],
+
+						[null,	null,	9,		null,	null,	null,	null,	3,		8		],
+						[2,		1,		null,	8,		4,		null,	null,	null,	null	],
+						[null,	null,	7,		null,	3,		null,	null,	6,		null	]
+						];
+
+// Medium-level board from websudoku.com
+// var board = [	[1,		null,	null,	null,	4,		null,	8,		null,	2		],
+// 				[2,		null,	null,	null,	null,	1,		null,	null,	null	],
+// 				[null,	null,	7,		3,		null,	null,	4,		1,		null	],
+
+// 				[null,	null,	2,		null,	1,		null,	null,	null,	6		],
+// 				[null,	4,		null,	null,	8,		null,	null,	5,		null	],
+// 				[3,		null,	null,	null,	6,		null,	2,		null,	null	],
+
+// 				[null,	2,		5,		null,	null,	7,		6,		null,	null	],
+// 				[null,	null,	null,	6,		null,	null,	null,	null,	4		],
+// 				[7,		null,	6,		null,	3,		null,	null,	null,	8		]	];
+
+// Easy-level board from websudoku.com
+// var board = [	[5,		null,	null,	8,		null,	null,	null,	7,		1		],
+// 				[1,		null,	null,	2,		null,	6,		9,		null,	4		],
+// 				[2,		8,		null,	null,	1,		null,	null,	null,	null	],
+
+// 				[null,	1,		8,		null,	null,	null,	null,	null,	7		],
+// 				[null,	4,		null,	null,	null,	null,	null,	6,		null	],
+// 				[9,		null,	null,	null,	null,	null,	5,		4,		null	],
+
+// 				[null,	null,	null,	null,	4,		null,	null,	2,		5		],
+// 				[4,		null,	6,		1,		null,	2,		null,	null,	9		],
+// 				[7,		3,		null,	null,	null,	9,		null,	null,	6		]	];
+
+	for (var formRow = 0; formRow <= 8; formRow++) {
+		for (var formCol = 0; formCol <= 8; formCol++) {
+			formRowCol = "input" + formRow + formCol;
+			form.elements[formRowCol].value = sampleBoard[formRow][formCol];
+		}
+	}
+});

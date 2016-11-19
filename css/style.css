@@ -1,0 +1,117 @@
+/* ================================= 
+  Base Element Styles
+==================================== */
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	font-family: sans-serif;
+	color: black;
+	padding: 20px;
+	line-height: 1.5em;
+}
+
+.table-outer,
+tr {
+	margin: 0px;
+	border: 0px;
+	padding: 0px;	
+	border-collapse: collapse;
+	border-spacing: 0px;
+}
+
+.table-inner,
+tr {
+	margin: 0px;
+	border: 0px;
+	padding: 0px;	
+	border-collapse: collapse;
+	border-spacing: 0px;
+}
+#solve-a-puzzle {
+	width: 100%;
+	padding: 20px 20px 20px 0px;
+}
+
+#sudoku-input {
+	float: left;
+	display: block;
+	width: 350px;
+}
+
+#board {
+	float: left;
+	display: none;
+	width: 350px;
+}
+
+#background-info {
+	width: 700px;
+}
+
+.table-outer td {
+	margin: 0px;
+	border: 2px solid black;
+	padding: 0px;
+	border-collapse: collapse;
+	border-spacing: 0px;
+	text-align: center;
+	font-size: .95em;
+}
+
+.table-inner td {
+	margin: 0px;
+	border: 1px solid black;
+	padding: 0px;
+	width: 30px;
+	height: 30px;
+	border-collapse: collapse;
+	border-spacing: 0px;
+	text-align: center;
+	font-size: .95em;
+}
+
+input {
+	border: 0px;
+	margin: 0px;
+	padding: 0px;	
+	border-collapse: collapse;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	font-size: .95em;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+button {
+	margin-top: 20px;
+	margin-right: 10px;
+}
+
+p {
+	font-size: .95em;
+}
+
+li {
+	margin-bottom: 20px;
+}
+
+.given {
+	background-color: #ccc;
+}
+
+/* ---- Float clearfix ---- */
+
+.clearfix::after {
+	content: " ";
+	display: table;
+	clear: both;
+}
