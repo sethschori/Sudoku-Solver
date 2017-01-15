@@ -11,6 +11,12 @@ body {
 	color: black;
 	padding: 20px;
 	line-height: 1.5em;
+	background-color: #ccc;
+}
+
+h2 {
+	margin-top: 0px;
+	margin-bottom: 0px;
 }
 
 .table-outer,
@@ -30,25 +36,34 @@ tr {
 	border-collapse: collapse;
 	border-spacing: 0px;
 }
-#solve-a-puzzle {
+
+#content-wrapper {
+	width: 80%;
+	max-width: 950px;
+	min-width: 850px;
+	margin: 0 auto;
+	padding: 40px;
+	background-color: white;
+}
+
+#recur_solve-a-puzzle,
+#elim_solve-a-puzzle {
 	width: 100%;
 	padding: 20px 20px 20px 0px;
 }
 
-#sudoku-input {
+#recur_sudoku-input,
+#elim_sudoku-input {
 	float: left;
 	display: block;
-	width: 350px;
+	width: 375px;
 }
 
-#board {
+#recur_board,
+#elim_board {
 	float: left;
 	display: none;
-	width: 350px;
-}
-
-#background-info {
-	width: 700px;
+	width: 375px;
 }
 
 .table-outer td {
@@ -91,12 +106,22 @@ input::-webkit-inner-spin-button {
     margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }
 
-button {
-	margin-top: 20px;
-	margin-right: 10px;
+.buttons {
+	margin: 0px;
+	font-size: .95em;
 }
 
-p {
+button {
+	margin-top: 20px;
+	margin-right: 5px;
+}
+
+#recur_submitPuzzle,
+#elim_submitPuzzle {
+	margin-left: 20px;
+}
+
+p, ul, li {
 	font-size: .95em;
 }
 
@@ -106,6 +131,10 @@ li {
 
 .given {
 	background-color: #ccc;
+}
+
+.notgiven {
+	background-color: white;
 }
 
 /* ---- Float clearfix ---- */

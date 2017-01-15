@@ -6,131 +6,73 @@
 		<div id="content-wrapper">
 			<h1>Sudoku Solver</h1>
 
-			<h2>Enter a Sudoku puzzle to solve!</h2>
+			<!-- <p>You can visit <a href="http://www.websudoku.com/" target="_blank">websudoku.com</a> to find <a href="http://www.websudoku.com/?level=1" target="_blank">easy</a>, <a href="http://www.websudoku.com/?level=2" target="_blank">medium</a>, <a href="http://www.websudoku.com/?level=3" target="_blank">hard</a>, and <a href="http://www.websudoku.com/?level=4" target="_blank">evil</a> puzzles for solving.</p> -->
 
-			<p>You can visit <a href="http://www.websudoku.com/" target="_blank">websudoku.com</a> to find <a href="http://www.websudoku.com/?level=1" target="_blank">easy</a>, <a href="http://www.websudoku.com/?level=2" target="_blank">medium</a>, <a href="http://www.websudoku.com/?level=3" target="_blank">hard</a>, and <a href="http://www.websudoku.com/?level=4" target="_blank">evil</a> puzzles for solving.</p>
+		<div id="recursive">
 
-			<p>Don't want to type in a Sudoku puzzle? Use the Fill in the board button to fill in a sample Sudoku puzzle.</p>
+			<h2>Resursive Approach</h2>
 
-		<div id="solve-a-puzzle" class="clearfix">
+		<div id="recur_solve-a-puzzle" class="clearfix">
 
-		<div id="sudoku-input">
-			<form>
+		<div id="recur_sudoku-input">
+
+			<form id="recur_form">
 				<table class="table-outer">
 					<tr>
 						<td>
 							<table class="table-inner">
 								<tr>
-									<td><input type="number" name="input00" min="1" max="9" autofocus></td>
-									<td><input type="number" name="input01" min="1" max="9""></td>
-									<td><input type="number" name="input02" min="1" max="9"></td>
+									<td><input type="number" name="recur_input00" min="1" max="9" autofocus></td>
+									<td><input type="number" name="recur_input01" min="1" max="9""></td>
+									<td><input type="number" name="recur_input02" min="1" max="9"></td>
 								</tr>
 								<tr>
-									<td><input type="number" name="input10" min="1" max="9"></td>
-									<td><input type="number" name="input11" min="1" max="9"></td>
-									<td><input type="number" name="input12" min="1" max="9"></td>
+									<td><input type="number" name="recur_input10" min="1" max="9"></td>
+									<td><input type="number" name="recur_input11" min="1" max="9"></td>
+									<td><input type="number" name="recur_input12" min="1" max="9"></td>
 								</tr>
 								<tr>
-									<td><input type="number" name="input20" min="1" max="9"></td>
-									<td><input type="number" name="input21" min="1" max="9"></td>
-									<td><input type="number" name="input22" min="1" max="9"></td>
-								</tr>
-							</table>
-						</td>
-						<td>
-							<table class="table-inner">
-								<tr>
-									<td><input type="number" name="input03" min="1" max="9"></td>
-									<td><input type="number" name="input04" min="1" max="9"></td>
-									<td><input type="number" name="input05" min="1" max="9"></td>
-								</tr>
-								<tr>
-									<td><input type="number" name="input13" min="1" max="9"></td>
-									<td><input type="number" name="input14" min="1" max="9"></td>
-									<td><input type="number" name="input15" min="1" max="9"></td>
-								</tr>
-								<tr>
-									<td><input type="number" name="input23" min="1" max="9"></td>
-									<td><input type="number" name="input24" min="1" max="9"></td>
-									<td><input type="number" name="input25" min="1" max="9"></td>
+									<td><input type="number" name="recur_input20" min="1" max="9"></td>
+									<td><input type="number" name="recur_input21" min="1" max="9"></td>
+									<td><input type="number" name="recur_input22" min="1" max="9"></td>
 								</tr>
 							</table>
 						</td>
 						<td>
 							<table class="table-inner">
 								<tr>
-									<td><input type="number" name="input06" min="1" max="9"></td>
-									<td><input type="number" name="input07" min="1" max="9"></td>
-									<td><input type="number" name="input08" min="1" max="9"></td>
+									<td><input type="number" name="recur_input03" min="1" max="9"></td>
+									<td><input type="number" name="recur_input04" min="1" max="9"></td>
+									<td><input type="number" name="recur_input05" min="1" max="9"></td>
 								</tr>
 								<tr>
-									<td><input type="number" name="input16" min="1" max="9"></td>
-									<td><input type="number" name="input17" min="1" max="9"></td>
-									<td><input type="number" name="input18" min="1" max="9"></td>
+									<td><input type="number" name="recur_input13" min="1" max="9"></td>
+									<td><input type="number" name="recur_input14" min="1" max="9"></td>
+									<td><input type="number" name="recur_input15" min="1" max="9"></td>
 								</tr>
 								<tr>
-									<td><input type="number" name="input26" min="1" max="9"></td>
-									<td><input type="number" name="input27" min="1" max="9"></td>
-									<td><input type="number" name="input28" min="1" max="9"></td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<table class="table-inner">
-								<tr>
-									<td><input type="number" name="input30" min="1" max="9"></td>
-									<td><input type="number" name="input31" min="1" max="9"></td>
-									<td><input type="number" name="input32" min="1" max="9"></td>
-								</tr>
-								<tr>
-									<td><input type="number" name="input40" min="1" max="9"></td>
-									<td><input type="number" name="input41" min="1" max="9"></td>
-									<td><input type="number" name="input42" min="1" max="9"></td>
-								</tr>
-								<tr>
-									<td><input type="number" name="input50" min="1" max="9"></td>
-									<td><input type="number" name="input51" min="1" max="9"></td>
-									<td><input type="number" name="input52" min="1" max="9"></td>
+									<td><input type="number" name="recur_input23" min="1" max="9"></td>
+									<td><input type="number" name="recur_input24" min="1" max="9"></td>
+									<td><input type="number" name="recur_input25" min="1" max="9"></td>
 								</tr>
 							</table>
 						</td>
 						<td>
 							<table class="table-inner">
 								<tr>
-									<td><input type="number" name="input33" min="1" max="9"></td>
-									<td><input type="number" name="input34" min="1" max="9"></td>
-									<td><input type="number" name="input35" min="1" max="9"></td>
+									<td><input type="number" name="recur_input06" min="1" max="9"></td>
+									<td><input type="number" name="recur_input07" min="1" max="9"></td>
+									<td><input type="number" name="recur_input08" min="1" max="9"></td>
 								</tr>
 								<tr>
-									<td><input type="number" name="input43" min="1" max="9"></td>
-									<td><input type="number" name="input44" min="1" max="9"></td>
-									<td><input type="number" name="input45" min="1" max="9"></td>
+									<td><input type="number" name="recur_input16" min="1" max="9"></td>
+									<td><input type="number" name="recur_input17" min="1" max="9"></td>
+									<td><input type="number" name="recur_input18" min="1" max="9"></td>
 								</tr>
 								<tr>
-									<td><input type="number" name="input53" min="1" max="9"></td>
-									<td><input type="number" name="input54" min="1" max="9"></td>
-									<td><input type="number" name="input55" min="1" max="9"></td>
-								</tr>
-							</table>
-						</td>
-						<td>
-							<table class="table-inner">
-								<tr>
-									<td><input type="number" name="input36" min="1" max="9"></td>
-									<td><input type="number" name="input37" min="1" max="9"></td>
-									<td><input type="number" name="input38" min="1" max="9"></td>
-								</tr>
-								<tr>
-									<td><input type="number" name="input46" min="1" max="9"></td>
-									<td><input type="number" name="input47" min="1" max="9"></td>
-									<td><input type="number" name="input48" min="1" max="9"></td>
-								</tr>
-								<tr>
-									<td><input type="number" name="input56" min="1" max="9"></td>
-									<td><input type="number" name="input57" min="1" max="9"></td>
-									<td><input type="number" name="input58" min="1" max="9"></td>
+									<td><input type="number" name="recur_input26" min="1" max="9"></td>
+									<td><input type="number" name="recur_input27" min="1" max="9"></td>
+									<td><input type="number" name="recur_input28" min="1" max="9"></td>
 								</tr>
 							</table>
 						</td>
@@ -139,107 +81,168 @@
 						<td>
 							<table class="table-inner">
 								<tr>
-									<td><input type="number" name="input60" min="1" max="9"></td>
-									<td><input type="number" name="input61" min="1" max="9"></td>
-									<td><input type="number" name="input62" min="1" max="9"></td>
+									<td><input type="number" name="recur_input30" min="1" max="9"></td>
+									<td><input type="number" name="recur_input31" min="1" max="9"></td>
+									<td><input type="number" name="recur_input32" min="1" max="9"></td>
 								</tr>
 								<tr>
-									<td><input type="number" name="input70" min="1" max="9"></td>
-									<td><input type="number" name="input71" min="1" max="9"></td>
-									<td><input type="number" name="input72" min="1" max="9"></td>
+									<td><input type="number" name="recur_input40" min="1" max="9"></td>
+									<td><input type="number" name="recur_input41" min="1" max="9"></td>
+									<td><input type="number" name="recur_input42" min="1" max="9"></td>
 								</tr>
 								<tr>
-									<td><input type="number" name="input80" min="1" max="9"></td>
-									<td><input type="number" name="input81" min="1" max="9"></td>
-									<td><input type="number" name="input82" min="1" max="9"></td>
-								</tr>
-							</table>
-						</td>
-						<td>
-							<table class="table-inner">
-								<tr>
-									<td><input type="number" name="input63" min="1" max="9"></td>
-									<td><input type="number" name="input64" min="1" max="9"></td>
-									<td><input type="number" name="input65" min="1" max="9"></td>
-								</tr>
-								<tr>
-									<td><input type="number" name="input73" min="1" max="9"></td>
-									<td><input type="number" name="input74" min="1" max="9"></td>
-									<td><input type="number" name="input75" min="1" max="9"></td>
-								</tr>
-								<tr>
-									<td><input type="number" name="input83" min="1" max="9"></td>
-									<td><input type="number" name="input84" min="1" max="9"></td>
-									<td><input type="number" name="input85" min="1" max="9"></td>
+									<td><input type="number" name="recur_input50" min="1" max="9"></td>
+									<td><input type="number" name="recur_input51" min="1" max="9"></td>
+									<td><input type="number" name="recur_input52" min="1" max="9"></td>
 								</tr>
 							</table>
 						</td>
 						<td>
 							<table class="table-inner">
 								<tr>
-									<td><input type="number" name="input66" min="1" max="9"></td>
-									<td><input type="number" name="input67" min="1" max="9"></td>
-									<td><input type="number" name="input68" min="1" max="9"></td>
+									<td><input type="number" name="recur_input33" min="1" max="9"></td>
+									<td><input type="number" name="recur_input34" min="1" max="9"></td>
+									<td><input type="number" name="recur_input35" min="1" max="9"></td>
 								</tr>
 								<tr>
-									<td><input type="number" name="input76" min="1" max="9"></td>
-									<td><input type="number" name="input77" min="1" max="9"></td>
-									<td><input type="number" name="input78" min="1" max="9"></td>
+									<td><input type="number" name="recur_input43" min="1" max="9"></td>
+									<td><input type="number" name="recur_input44" min="1" max="9"></td>
+									<td><input type="number" name="recur_input45" min="1" max="9"></td>
 								</tr>
 								<tr>
-									<td><input type="number" name="input86" min="1" max="9"></td>
-									<td><input type="number" name="input87" min="1" max="9"></td>
-									<td><input type="number" name="input88" min="1" max="9"></td>
+									<td><input type="number" name="recur_input53" min="1" max="9"></td>
+									<td><input type="number" name="recur_input54" min="1" max="9"></td>
+									<td><input type="number" name="recur_input55" min="1" max="9"></td>
+								</tr>
+							</table>
+						</td>
+						<td>
+							<table class="table-inner">
+								<tr>
+									<td><input type="number" name="recur_input36" min="1" max="9"></td>
+									<td><input type="number" name="recur_input37" min="1" max="9"></td>
+									<td><input type="number" name="recur_input38" min="1" max="9"></td>
+								</tr>
+								<tr>
+									<td><input type="number" name="recur_input46" min="1" max="9"></td>
+									<td><input type="number" name="recur_input47" min="1" max="9"></td>
+									<td><input type="number" name="recur_input48" min="1" max="9"></td>
+								</tr>
+								<tr>
+									<td><input type="number" name="recur_input56" min="1" max="9"></td>
+									<td><input type="number" name="recur_input57" min="1" max="9"></td>
+									<td><input type="number" name="recur_input58" min="1" max="9"></td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<table class="table-inner">
+								<tr>
+									<td><input type="number" name="recur_input60" min="1" max="9"></td>
+									<td><input type="number" name="recur_input61" min="1" max="9"></td>
+									<td><input type="number" name="recur_input62" min="1" max="9"></td>
+								</tr>
+								<tr>
+									<td><input type="number" name="recur_input70" min="1" max="9"></td>
+									<td><input type="number" name="recur_input71" min="1" max="9"></td>
+									<td><input type="number" name="recur_input72" min="1" max="9"></td>
+								</tr>
+								<tr>
+									<td><input type="number" name="recur_input80" min="1" max="9"></td>
+									<td><input type="number" name="recur_input81" min="1" max="9"></td>
+									<td><input type="number" name="recur_input82" min="1" max="9"></td>
+								</tr>
+							</table>
+						</td>
+						<td>
+							<table class="table-inner">
+								<tr>
+									<td><input type="number" name="recur_input63" min="1" max="9"></td>
+									<td><input type="number" name="recur_input64" min="1" max="9"></td>
+									<td><input type="number" name="recur_input65" min="1" max="9"></td>
+								</tr>
+								<tr>
+									<td><input type="number" name="recur_input73" min="1" max="9"></td>
+									<td><input type="number" name="recur_input74" min="1" max="9"></td>
+									<td><input type="number" name="recur_input75" min="1" max="9"></td>
+								</tr>
+								<tr>
+									<td><input type="number" name="recur_input83" min="1" max="9"></td>
+									<td><input type="number" name="recur_input84" min="1" max="9"></td>
+									<td><input type="number" name="recur_input85" min="1" max="9"></td>
+								</tr>
+							</table>
+						</td>
+						<td>
+							<table class="table-inner">
+								<tr>
+									<td><input type="number" name="recur_input66" min="1" max="9"></td>
+									<td><input type="number" name="recur_input67" min="1" max="9"></td>
+									<td><input type="number" name="recur_input68" min="1" max="9"></td>
+								</tr>
+								<tr>
+									<td><input type="number" name="recur_input76" min="1" max="9"></td>
+									<td><input type="number" name="recur_input77" min="1" max="9"></td>
+									<td><input type="number" name="recur_input78" min="1" max="9"></td>
+								</tr>
+								<tr>
+									<td><input type="number" name="recur_input86" min="1" max="9"></td>
+									<td><input type="number" name="recur_input87" min="1" max="9"></td>
+									<td><input type="number" name="recur_input88" min="1" max="9"></td>
 								</tr>
 							</table>
 						</td>
 					</tr>
 				</table>
-				<button type="button" id="fillInPuzzle" title="Fill in a sample puzzle">Fill in the board</button>
-				<button type="button" id="submitPuzzle" title="Solve the puzzle">Solve it!</button>
-				<button type="reset" id="resetPuzzle" title="Clear the board and start over">Clear</button>
+				<div class="buttons">Samples: <button type="button" id="recur_fillInPuzzleEasy" title="Fill in an easy sample puzzle">Easy</button>
+				<button type="button" id="recur_fillInPuzzleMedium" title="Fill in a medium sample puzzle">Medium</button>
+				<button type="button" id="recur_fillInPuzzleHard" title="Fill in a hard sample puzzle">Hard</button>
+				<button type="button" id="recur_submitPuzzle" title="Solve the puzzle">Solve</button>
+				<button type="reset" id="recur_resetPuzzle" title="Clear the board and start over">Clear</button></div>
 			</form>
 		</div>
 
-		<div id="board">
-			<table id="innerHTMLtable" class="table-outer">
+		<div id="recur_board">
+			<table class="table-outer">
 				<tr>
 					<td>
 						<table class="table-inner">
 							<tr>
-								<td id="r0c0"></td><td id="r0c1"></td><td id="r0c2"></td>
+								<td id="recur_r0c0"></td><td id="recur_r0c1"></td><td id="recur_r0c2"></td>
 							</tr>
 							<tr>
-								<td id="r1c0"></td><td id="r1c1"></td><td id="r1c2"></td>
+								<td id="recur_r1c0"></td><td id="recur_r1c1"></td><td id="recur_r1c2"></td>
 							</tr>
 							<tr>
-								<td id="r2c0"></td><td id="r2c1"></td><td id="r2c2"></td>
-							</tr>
-						</table>
-					</td>
-					<td>
-						<table class="table-inner">
-							<tr>
-								<td id="r0c3"></td><td id="r0c4"></td><td id="r0c5"></td>
-							</tr>
-							<tr>
-								<td id="r1c3"></td><td id="r1c4"></td><td id="r1c5"></td>
-							</tr>
-							<tr>
-								<td id="r2c3"></td><td id="r2c4"></td><td id="r2c5"></td>
+								<td id="recur_r2c0"></td><td id="recur_r2c1"></td><td id="recur_r2c2"></td>
 							</tr>
 						</table>
 					</td>
 					<td>
 						<table class="table-inner">
 							<tr>
-								<td id="r0c6"></td><td id="r0c7"></td><td id="r0c8"></td>
+								<td id="recur_r0c3"></td><td id="recur_r0c4"></td><td id="recur_r0c5"></td>
 							</tr>
 							<tr>
-								<td id="r1c6"></td><td id="r1c7"></td><td id="r1c8"></td>
+								<td id="recur_r1c3"></td><td id="recur_r1c4"></td><td id="recur_r1c5"></td>
 							</tr>
 							<tr>
-								<td id="r2c6"></td><td id="r2c7"></td><td id="r2c8"></td>
+								<td id="recur_r2c3"></td><td id="recur_r2c4"></td><td id="recur_r2c5"></td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table class="table-inner">
+							<tr>
+								<td id="recur_r0c6"></td><td id="recur_r0c7"></td><td id="recur_r0c8"></td>
+							</tr>
+							<tr>
+								<td id="recur_r1c6"></td><td id="recur_r1c7"></td><td id="recur_r1c8"></td>
+							</tr>
+							<tr>
+								<td id="recur_r2c6"></td><td id="recur_r2c7"></td><td id="recur_r2c8"></td>
 							</tr>
 						</table>
 					</td>
@@ -248,39 +251,39 @@
 					<td>
 						<table class="table-inner">
 							<tr>
-								<td id="r3c0"></td><td id="r3c1"></td><td id="r3c2"></td>
+								<td id="recur_r3c0"></td><td id="recur_r3c1"></td><td id="recur_r3c2"></td>
 							</tr>
 							<tr>
-								<td id="r4c0"></td><td id="r4c1"></td><td id="r4c2"></td>
+								<td id="recur_r4c0"></td><td id="recur_r4c1"></td><td id="recur_r4c2"></td>
 							</tr>
 							<tr>
-								<td id="r5c0"></td><td id="r5c1"></td><td id="r5c2"></td>
-							</tr>
-						</table>
-					</td>
-					<td>
-						<table class="table-inner">
-							<tr>
-								<td id="r3c3"></td><td id="r3c4"></td><td id="r3c5"></td>
-							</tr>
-							<tr>
-								<td id="r4c3"></td><td id="r4c4"></td><td id="r4c5"></td>
-							</tr>
-							<tr>
-								<td id="r5c3"></td><td id="r5c4"></td><td id="r5c5"></td>
+								<td id="recur_r5c0"></td><td id="recur_r5c1"></td><td id="recur_r5c2"></td>
 							</tr>
 						</table>
 					</td>
 					<td>
 						<table class="table-inner">
 							<tr>
-								<td id="r3c6"></td><td id="r3c7"></td><td id="r3c8"></td>
+								<td id="recur_r3c3"></td><td id="recur_r3c4"></td><td id="recur_r3c5"></td>
 							</tr>
 							<tr>
-								<td id="r4c6"></td><td id="r4c7"></td><td id="r4c8"></td>
+								<td id="recur_r4c3"></td><td id="recur_r4c4"></td><td id="recur_r4c5"></td>
 							</tr>
 							<tr>
-								<td id="r5c6"></td><td id="r5c7"></td><td id="r5c8"></td>
+								<td id="recur_r5c3"></td><td id="recur_r5c4"></td><td id="recur_r5c5"></td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table class="table-inner">
+							<tr>
+								<td id="recur_r3c6"></td><td id="recur_r3c7"></td><td id="recur_r3c8"></td>
+							</tr>
+							<tr>
+								<td id="recur_r4c6"></td><td id="recur_r4c7"></td><td id="recur_r4c8"></td>
+							</tr>
+							<tr>
+								<td id="recur_r5c6"></td><td id="recur_r5c7"></td><td id="recur_r5c8"></td>
 							</tr>
 						</table>
 					</td>
@@ -289,39 +292,39 @@
 					<td>
 						<table class="table-inner">
 							<tr>
-								<td id="r6c0"></td><td id="r6c1"></td><td id="r6c2"></td>
+								<td id="recur_r6c0"></td><td id="recur_r6c1"></td><td id="recur_r6c2"></td>
 							</tr>
 							<tr>
-								<td id="r7c0"></td><td id="r7c1"></td><td id="r7c2"></td>
+								<td id="recur_r7c0"></td><td id="recur_r7c1"></td><td id="recur_r7c2"></td>
 							</tr>
 							<tr>
-								<td id="r8c0"></td><td id="r8c1"></td><td id="r8c2"></td>
-							</tr>
-						</table>
-					</td>
-					<td>
-						<table class="table-inner">
-							<tr>
-								<td id="r6c3"></td><td id="r6c4"></td><td id="r6c5"></td>
-							</tr>
-							<tr>
-								<td id="r7c3"></td><td id="r7c4"></td><td id="r7c5"></td>
-							</tr>
-							<tr>
-								<td id="r8c3"></td><td id="r8c4"></td><td id="r8c5"></td>
+								<td id="recur_r8c0"></td><td id="recur_r8c1"></td><td id="recur_r8c2"></td>
 							</tr>
 						</table>
 					</td>
 					<td>
 						<table class="table-inner">
 							<tr>
-								<td id="r6c6"></td><td id="r6c7"></td><td id="r6c8"></td>
+								<td id="recur_r6c3"></td><td id="recur_r6c4"></td><td id="recur_r6c5"></td>
 							</tr>
 							<tr>
-								<td id="r7c6"></td><td id="r7c7"></td><td id="r7c8"></td>
+								<td id="recur_r7c3"></td><td id="recur_r7c4"></td><td id="recur_r7c5"></td>
 							</tr>
 							<tr>
-								<td id="r8c6"></td><td id="r8c7"></td><td id="r8c8"></td>
+								<td id="recur_r8c3"></td><td id="recur_r8c4"></td><td id="recur_r8c5"></td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table class="table-inner">
+							<tr>
+								<td id="recur_r6c6"></td><td id="recur_r6c7"></td><td id="recur_r6c8"></td>
+							</tr>
+							<tr>
+								<td id="recur_r7c6"></td><td id="recur_r7c7"></td><td id="recur_r7c8"></td>
+							</tr>
+							<tr>
+								<td id="recur_r8c6"></td><td id="recur_r8c7"></td><td id="recur_r8c8"></td>
 							</tr>
 						</table>
 					</td>
@@ -331,14 +334,348 @@
 
 </div> <!-- close solve-a-puzzle -->
 
+
+</div> <!-- close recursive -->
+		<div id="elimination">
+
+			<h2>Process of Elimination Approach</h2>
+
+		<div id="elim_solve-a-puzzle" class="clearfix">
+
+		<div id="elim_sudoku-input">
+
+			<form id="elim_form">
+				<table class="table-outer">
+					<tr>
+						<td>
+							<table class="table-inner">
+								<tr>
+									<td><input type="number" name="elim_input00" min="1" max="9" autofocus></td>
+									<td><input type="number" name="elim_input01" min="1" max="9""></td>
+									<td><input type="number" name="elim_input02" min="1" max="9"></td>
+								</tr>
+								<tr>
+									<td><input type="number" name="elim_input10" min="1" max="9"></td>
+									<td><input type="number" name="elim_input11" min="1" max="9"></td>
+									<td><input type="number" name="elim_input12" min="1" max="9"></td>
+								</tr>
+								<tr>
+									<td><input type="number" name="elim_input20" min="1" max="9"></td>
+									<td><input type="number" name="elim_input21" min="1" max="9"></td>
+									<td><input type="number" name="elim_input22" min="1" max="9"></td>
+								</tr>
+							</table>
+						</td>
+						<td>
+							<table class="table-inner">
+								<tr>
+									<td><input type="number" name="elim_input03" min="1" max="9"></td>
+									<td><input type="number" name="elim_input04" min="1" max="9"></td>
+									<td><input type="number" name="elim_input05" min="1" max="9"></td>
+								</tr>
+								<tr>
+									<td><input type="number" name="elim_input13" min="1" max="9"></td>
+									<td><input type="number" name="elim_input14" min="1" max="9"></td>
+									<td><input type="number" name="elim_input15" min="1" max="9"></td>
+								</tr>
+								<tr>
+									<td><input type="number" name="elim_input23" min="1" max="9"></td>
+									<td><input type="number" name="elim_input24" min="1" max="9"></td>
+									<td><input type="number" name="elim_input25" min="1" max="9"></td>
+								</tr>
+							</table>
+						</td>
+						<td>
+							<table class="table-inner">
+								<tr>
+									<td><input type="number" name="elim_input06" min="1" max="9"></td>
+									<td><input type="number" name="elim_input07" min="1" max="9"></td>
+									<td><input type="number" name="elim_input08" min="1" max="9"></td>
+								</tr>
+								<tr>
+									<td><input type="number" name="elim_input16" min="1" max="9"></td>
+									<td><input type="number" name="elim_input17" min="1" max="9"></td>
+									<td><input type="number" name="elim_input18" min="1" max="9"></td>
+								</tr>
+								<tr>
+									<td><input type="number" name="elim_input26" min="1" max="9"></td>
+									<td><input type="number" name="elim_input27" min="1" max="9"></td>
+									<td><input type="number" name="elim_input28" min="1" max="9"></td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<table class="table-inner">
+								<tr>
+									<td><input type="number" name="elim_input30" min="1" max="9"></td>
+									<td><input type="number" name="elim_input31" min="1" max="9"></td>
+									<td><input type="number" name="elim_input32" min="1" max="9"></td>
+								</tr>
+								<tr>
+									<td><input type="number" name="elim_input40" min="1" max="9"></td>
+									<td><input type="number" name="elim_input41" min="1" max="9"></td>
+									<td><input type="number" name="elim_input42" min="1" max="9"></td>
+								</tr>
+								<tr>
+									<td><input type="number" name="elim_input50" min="1" max="9"></td>
+									<td><input type="number" name="elim_input51" min="1" max="9"></td>
+									<td><input type="number" name="elim_input52" min="1" max="9"></td>
+								</tr>
+							</table>
+						</td>
+						<td>
+							<table class="table-inner">
+								<tr>
+									<td><input type="number" name="elim_input33" min="1" max="9"></td>
+									<td><input type="number" name="elim_input34" min="1" max="9"></td>
+									<td><input type="number" name="elim_input35" min="1" max="9"></td>
+								</tr>
+								<tr>
+									<td><input type="number" name="elim_input43" min="1" max="9"></td>
+									<td><input type="number" name="elim_input44" min="1" max="9"></td>
+									<td><input type="number" name="elim_input45" min="1" max="9"></td>
+								</tr>
+								<tr>
+									<td><input type="number" name="elim_input53" min="1" max="9"></td>
+									<td><input type="number" name="elim_input54" min="1" max="9"></td>
+									<td><input type="number" name="elim_input55" min="1" max="9"></td>
+								</tr>
+							</table>
+						</td>
+						<td>
+							<table class="table-inner">
+								<tr>
+									<td><input type="number" name="elim_input36" min="1" max="9"></td>
+									<td><input type="number" name="elim_input37" min="1" max="9"></td>
+									<td><input type="number" name="elim_input38" min="1" max="9"></td>
+								</tr>
+								<tr>
+									<td><input type="number" name="elim_input46" min="1" max="9"></td>
+									<td><input type="number" name="elim_input47" min="1" max="9"></td>
+									<td><input type="number" name="elim_input48" min="1" max="9"></td>
+								</tr>
+								<tr>
+									<td><input type="number" name="elim_input56" min="1" max="9"></td>
+									<td><input type="number" name="elim_input57" min="1" max="9"></td>
+									<td><input type="number" name="elim_input58" min="1" max="9"></td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<table class="table-inner">
+								<tr>
+									<td><input type="number" name="elim_input60" min="1" max="9"></td>
+									<td><input type="number" name="elim_input61" min="1" max="9"></td>
+									<td><input type="number" name="elim_input62" min="1" max="9"></td>
+								</tr>
+								<tr>
+									<td><input type="number" name="elim_input70" min="1" max="9"></td>
+									<td><input type="number" name="elim_input71" min="1" max="9"></td>
+									<td><input type="number" name="elim_input72" min="1" max="9"></td>
+								</tr>
+								<tr>
+									<td><input type="number" name="elim_input80" min="1" max="9"></td>
+									<td><input type="number" name="elim_input81" min="1" max="9"></td>
+									<td><input type="number" name="elim_input82" min="1" max="9"></td>
+								</tr>
+							</table>
+						</td>
+						<td>
+							<table class="table-inner">
+								<tr>
+									<td><input type="number" name="elim_input63" min="1" max="9"></td>
+									<td><input type="number" name="elim_input64" min="1" max="9"></td>
+									<td><input type="number" name="elim_input65" min="1" max="9"></td>
+								</tr>
+								<tr>
+									<td><input type="number" name="elim_input73" min="1" max="9"></td>
+									<td><input type="number" name="elim_input74" min="1" max="9"></td>
+									<td><input type="number" name="elim_input75" min="1" max="9"></td>
+								</tr>
+								<tr>
+									<td><input type="number" name="elim_input83" min="1" max="9"></td>
+									<td><input type="number" name="elim_input84" min="1" max="9"></td>
+									<td><input type="number" name="elim_input85" min="1" max="9"></td>
+								</tr>
+							</table>
+						</td>
+						<td>
+							<table class="table-inner">
+								<tr>
+									<td><input type="number" name="elim_input66" min="1" max="9"></td>
+									<td><input type="number" name="elim_input67" min="1" max="9"></td>
+									<td><input type="number" name="elim_input68" min="1" max="9"></td>
+								</tr>
+								<tr>
+									<td><input type="number" name="elim_input76" min="1" max="9"></td>
+									<td><input type="number" name="elim_input77" min="1" max="9"></td>
+									<td><input type="number" name="elim_input78" min="1" max="9"></td>
+								</tr>
+								<tr>
+									<td><input type="number" name="elim_input86" min="1" max="9"></td>
+									<td><input type="number" name="elim_input87" min="1" max="9"></td>
+									<td><input type="number" name="elim_input88" min="1" max="9"></td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+				<div class="buttons">Samples: <button type="button" id="elim_fillInPuzzleEasy" title="Fill in an easy sample puzzle">Easy</button>
+				<button type="button" id="elim_fillInPuzzleMedium" title="Fill in a medium sample puzzle">Medium</button>
+				<button type="button" id="elim_fillInPuzzleHard" title="Fill in a hard sample puzzle">Hard</button>
+				<button type="button" id="elim_submitPuzzle" title="Solve the puzzle">Solve</button>
+				<button type="reset" id="elim_resetPuzzle" title="Clear the board and start over">Clear</button></div>
+			</form>
+		</div>
+
+		<div id="elim_board">
+			<table class="table-outer">
+				<tr>
+					<td>
+						<table class="table-inner">
+							<tr>
+								<td id="elim_r0c0"></td><td id="elim_r0c1"></td><td id="elim_r0c2"></td>
+							</tr>
+							<tr>
+								<td id="elim_r1c0"></td><td id="elim_r1c1"></td><td id="elim_r1c2"></td>
+							</tr>
+							<tr>
+								<td id="elim_r2c0"></td><td id="elim_r2c1"></td><td id="elim_r2c2"></td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table class="table-inner">
+							<tr>
+								<td id="elim_r0c3"></td><td id="elim_r0c4"></td><td id="elim_r0c5"></td>
+							</tr>
+							<tr>
+								<td id="elim_r1c3"></td><td id="elim_r1c4"></td><td id="elim_r1c5"></td>
+							</tr>
+							<tr>
+								<td id="elim_r2c3"></td><td id="elim_r2c4"></td><td id="elim_r2c5"></td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table class="table-inner">
+							<tr>
+								<td id="elim_r0c6"></td><td id="elim_r0c7"></td><td id="elim_r0c8"></td>
+							</tr>
+							<tr>
+								<td id="elim_r1c6"></td><td id="elim_r1c7"></td><td id="elim_r1c8"></td>
+							</tr>
+							<tr>
+								<td id="elim_r2c6"></td><td id="elim_r2c7"></td><td id="elim_r2c8"></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<table class="table-inner">
+							<tr>
+								<td id="elim_r3c0"></td><td id="elim_r3c1"></td><td id="elim_r3c2"></td>
+							</tr>
+							<tr>
+								<td id="elim_r4c0"></td><td id="elim_r4c1"></td><td id="elim_r4c2"></td>
+							</tr>
+							<tr>
+								<td id="elim_r5c0"></td><td id="elim_r5c1"></td><td id="elim_r5c2"></td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table class="table-inner">
+							<tr>
+								<td id="elim_r3c3"></td><td id="elim_r3c4"></td><td id="elim_r3c5"></td>
+							</tr>
+							<tr>
+								<td id="elim_r4c3"></td><td id="elim_r4c4"></td><td id="elim_r4c5"></td>
+							</tr>
+							<tr>
+								<td id="elim_r5c3"></td><td id="elim_r5c4"></td><td id="elim_r5c5"></td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table class="table-inner">
+							<tr>
+								<td id="elim_r3c6"></td><td id="elim_r3c7"></td><td id="elim_r3c8"></td>
+							</tr>
+							<tr>
+								<td id="elim_r4c6"></td><td id="elim_r4c7"></td><td id="elim_r4c8"></td>
+							</tr>
+							<tr>
+								<td id="elim_r5c6"></td><td id="elim_r5c7"></td><td id="elim_r5c8"></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<table class="table-inner">
+							<tr>
+								<td id="elim_r6c0"></td><td id="elim_r6c1"></td><td id="elim_r6c2"></td>
+							</tr>
+							<tr>
+								<td id="elim_r7c0"></td><td id="elim_r7c1"></td><td id="elim_r7c2"></td>
+							</tr>
+							<tr>
+								<td id="elim_r8c0"></td><td id="elim_r8c1"></td><td id="elim_r8c2"></td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table class="table-inner">
+							<tr>
+								<td id="elim_r6c3"></td><td id="elim_r6c4"></td><td id="elim_r6c5"></td>
+							</tr>
+							<tr>
+								<td id="elim_r7c3"></td><td id="elim_r7c4"></td><td id="elim_r7c5"></td>
+							</tr>
+							<tr>
+								<td id="elim_r8c3"></td><td id="elim_r8c4"></td><td id="elim_r8c5"></td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table class="table-inner">
+							<tr>
+								<td id="elim_r6c6"></td><td id="elim_r6c7"></td><td id="elim_r6c8"></td>
+							</tr>
+							<tr>
+								<td id="elim_r7c6"></td><td id="elim_r7c7"></td><td id="elim_r7c8"></td>
+							</tr>
+							<tr>
+								<td id="elim_r8c6"></td><td id="elim_r8c7"></td><td id="elim_r8c8"></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</div>
+
+</div> <!-- close solve-a-puzzle -->
+
+</div> <!-- close elimination -->
+
 		<div id = "background-info">
 			<h2>About Sudoku Solver</h2>
 
-			<p><strong>About Sudoku:</strong> The Sudoku board is a 9x9 grid of 81 cells. At the start of a Sudoku game, numerous cells on the board are blank and the goal is to fill each cell with a single digit between 1 and 9. Each of the 9 rows and each of the 9 columns in the grid must contain each digit from 1 to 9 without duplication. Additionally, the board is subdivided into 9 nonets. A nonet is a 3x3 quadrant within the Sudoku grid, with each nonet containing 9 cells. The final requirement is that each nonet must contain each digit from 1 to 9 without duplication.</p>
+			<p>Sudoku Solver solves Sudoku puzzles using two approaches: 1) trial-and-error computer techniques (recursive approach) and 2) human-style techniques (process of elimination approach). Please note that approach #2 only solves relatively easy Sudoku puzzles, as it only contains about one-third of the techniques that human players use. As far as I know, approach #1 can solve any Sudoku puzzle.
 
-			<p><strong>How Sudoku Solver works:</strong> Sudoku Solver solves Sudoku puzzles by following the same Sudoku rules that human players must follow (i.e. it doesn't test multiple possibilities or use brute force approaches). The reasons for taking this approach are 1) it enabled me learn how to translate rules of play into JavaScript functions and 2) in the future I may evolve this program to demonstrate to the user how it is solving the board.</p>
+			<p><strong>Why two approaches?</strong> While I was still relatively new to learning programming and JavaScript, I decided to try and build a Sudoku-solving program. At the time, I didn't understand recursion very well, and using human techniques for solving Sudoku seemed like the best approach. I struggled with adding different types of human techniques (see below for descriptions of Sole Candidate, Unique Candidate, and Naked Subset). Eventually, as I came to understand recursion better, I realized that it's much easier for computer programs to solve Sudoku using a recursive trial-and-error approach. Once I tried the recursive approach, I was able to write it fairly quickly and with about half the lines of code that I'd used for the process of elimination approach. As it currently stands, the elimination approach can only solve easy- and medium-level puzzles (as categorized by <a href="http://websudoku.com">websudoku.com</a>). If I tripled the number of elimination approaches, the program would likely solve all Sudoku puzzles. However, I've stopped building this program, as I've accomplished my goals with this project and want to try other things.</p>
 
-			<p><strong>Techniques used:</strong> I am grateful to kristanix.com for the <a href="https://www.kristanix.com/sudokuepic/sudoku-solving-techniques.php">Suduko-solving techniques</a> which I have used in this program, and I have used the techniques' names as the names of functions in the JavaScript program. Sudoku Solver uses three techniques from kristanix.com to solve the Sudoku puzzles: Sole Candidate, Unique Candidate, and Naked Subset.</p>
+			<p><strong>How the recursive approach works:</strong> With the recursive approach, Sudoku Solver solves Sudoku puzzles by recursively testing multiple possibilities, until it finally lands on the solution. This approach violates the rules that human players are supposed to follow, although I found it much easier to code the recursive approach than the process of elimination approach. To solve the board recursively, the program finds the first blank cell on the board and starts by inserting the number 1 into that cell. It then checks to see whether there is already a number 1 in the row, column, and nonet which contain that blank cell. If there is already a number 1, then the program moves on successively to 2, 3, etc., all the way up to 9. Once it finds a number that doesn't conflict with the associated row, column, and nonet, the program moves on to the next blank cell. The process repeats. If the program cannot find a non-conflicting candidate for the subsequent blank cell, then the program goes back to the previous cell and increments to the next candidate number (e.g. it moves from number 2 to number 3). If the program does find a non-conflicting candidate for the subsequent blank cell, then the process continues in the same fashion until there are no more blank cells left to fill.
+
+			<p><strong>How the process of elimination approach works:</strong> With the process of elimination approach, Sudoku Solver solves Sudoku puzzles by following the same rules that human players must follow (i.e. it doesn't test multiple possibilities, as the recursive approach does). The reasons for taking this approach are 1) it enabled me learn how to translate rules of play into JavaScript functions and 2) in the future I could evolve this program to demonstrate to the user how it is solving the board.</p>
+
+			<p>I am grateful to kristanix.com for the <a href="https://www.kristanix.com/sudokuepic/sudoku-solving-techniques.php">Suduko-solving techniques</a> which I have used in the process of elimination approach, and I have used the techniques' names as the names of functions in the sudokusolver-elimination JavaScript program. Sudoku Solver uses three techniques from kristanix.com to solve the Sudoku puzzles: Sole Candidate, Unique Candidate, and Naked Subset.</p>
 
 			<ul>
 				<li><strong>Sole Candidate:</strong> Given a blank cell on the board, check whether eight values are already present in the nonet, row, and column. If so, the "missing" ninth value must be the solution to that cell.</li>
@@ -348,7 +685,8 @@
 
 		</div>
 
-		<script src="sudokusolver.js"></script>
+		<script src="sudokusolver-elimination.js"></script>
+		<script src="sudokusolver-recursive.js"></script>
 
 	</body>
 </html>

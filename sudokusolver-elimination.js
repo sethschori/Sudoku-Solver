@@ -10,7 +10,7 @@ Naked Subset.
 
 =========================================================================================== */
 
-var board = [];
+var elimBoard = [];
 
 // load the sdk functions so they can be called when needed
 exportSDK();
@@ -65,8 +65,8 @@ function soleCandidate(nonet, currentRow, currentCol) {
 // Check whether there is a number which -- by virtue of being in other columns and rows on the board --
 // can only be valid in one cell. If so, it returns that value, if it can't it returns false.
 function uniqueCandidate(nonet, currentRow, currentCol) {
-	// build an object with properties that hold 1) the non-null values in the nonet and 2) the values
-	// in each row and column that intersects the nonet
+	// build an object with properties that hold 1) the non-null values in the nonet and 2) the non-
+	// null values in each row and column that intersects the nonet
 	function buildNonetProperties(nonet) {
 		var obj = {}
 		obj.nonetVals = sdk.extractNonetUnique(nonet);
@@ -86,16 +86,16 @@ function uniqueCandidate(nonet, currentRow, currentCol) {
 	for (var i = 1; i <= 9; i++) {
 		var winnerFlag = true;
 		// if that number is not already present in the nonet (nonetProperties.nonetVals), then...
-		if (nonetProperties["nonetVals"].indexOf(i) === -1) {
+		if (nonetProperties["nonetVals"].indexOf(i) === -1 && nonetProperties["row"+currentRow].indexOf(i) === -1 && nonetProperties["col"+currentCol].indexOf(i) === -1) {
 			// loop each blank cell in the nonet and test whether the number is present in the row
 			// OR column that intersects that cell (excluding the cell being checked for unique candidacy)
 			// console.log("i: ",i, "not present in nonet");
 			for (var row = nonetProperties.startRow; row <= nonetProperties.startRow + 2; row++) {
 				for (var col = nonetProperties.startCol; col <= nonetProperties.startCol + 2; col++) {
-					if (!board[row][col]) {
+					if (!elimBoard[row][col]) {
 						// console.log("WE'RE EVALUATING A BLANK CELL: r"+row+"c"+col);
 						// console.log("winnerFlag:",winnerFlag);
-						// console.log("row: ",row,"col: ",col,board[row][col]);
+						// console.log("row: ",row,"col: ",col,elimBoard[row][col]);
 						// console.log("row"+row+" vals: ",nonetProperties["row"+row]);
 						// console.log("col"+col+" vals: ",nonetProperties["col"+col]);
 						// console.log("currentRow:",currentRow,"currentCol:",currentCol,"row:",row,"col:",col);
@@ -116,7 +116,10 @@ function uniqueCandidate(nonet, currentRow, currentCol) {
 				}
 			}
 			// if a unique candidate is found, return it
-			if (winnerFlag) return i;
+			if (winnerFlag) {
+				// console.log("winner is", i,"", nonetProperties);
+				return i;
+			}
 		}
 	}
 	// if values 1 through 9 all failed, then return false 
@@ -141,7 +144,7 @@ function nakedSubset() {
 						var nextRowCol = "r" + row + "c" + nextCol;
 						if (trackerObj[nextRowCol].length === 2) {
 							if (trackerObj[currentRowCol][0] === trackerObj[nextRowCol][0] && trackerObj[currentRowCol][1] === trackerObj[nextRowCol][1]) {
-								console.log("trackerObj[currentRowCol:"+currentRowCol+"][0]:", trackerObj[currentRowCol][0],"trackerObj[nextRowCol:"+nextRowCol+"][0]:",trackerObj[nextRowCol][0], "trackerObj[currentRowCol:"+currentRowCol+"][1]:",trackerObj[currentRowCol][1], "trackerObj[nextRowCol:"+nextRowCol+"][1]:",trackerObj[nextRowCol][1]);
+								// console.log("trackerObj[currentRowCol:"+currentRowCol+"][0]:", trackerObj[currentRowCol][0],"trackerObj[nextRowCol:"+nextRowCol+"][0]:",trackerObj[nextRowCol][0], "trackerObj[currentRowCol:"+currentRowCol+"][1]:",trackerObj[currentRowCol][1], "trackerObj[nextRowCol:"+nextRowCol+"][1]:",trackerObj[nextRowCol][1]);
 								// if so, loop through the cells in this row again
 								for (var colRemoval = 0; colRemoval <= 8; colRemoval++) {
 									// and remove the potentialSubset values as candidates for other cells within that row
@@ -150,10 +153,10 @@ function nakedSubset() {
 									if (trackerObj[removalRowCol].length > 2) {
 										// then check that both values in potentialSubset are present in removalRowCol
 										if (trackerObj[removalRowCol].indexOf(potentialSubset[0]) !== -1 && trackerObj[removalRowCol].indexOf(potentialSubset[1]) !== -1 ) {
-											sdk.printTrackerObj();
-											console.log("going to remove Naked Subset", potentialSubset, "at:",removalRowCol);
+											// sdk.printTrackerObj();
+											// console.log("nSRows is going to remove Naked Subset", potentialSubset, "at:",removalRowCol);
 											trackerObj[removalRowCol] = sdk.trackerObjRemove(removalRowCol, potentialSubset);
-											console.log("going to run trackerObjUpdate because candidates were removed");
+											// console.log("nSRows is going to run trackerObjUpdate because candidates were removed");
 											sdk.trackerObjUpdate();
 										}
 									}
@@ -179,19 +182,20 @@ function nakedSubset() {
 						var nextRowCol = "r" + nextRow + "c" + col;
 						if (trackerObj[nextRowCol].length === 2) {
 							if (trackerObj[currentRowCol][0] === trackerObj[nextRowCol][0] && trackerObj[currentRowCol][1] === trackerObj[nextRowCol][1]) {
-								console.log("trackerObj[currentRowCol:"+currentRowCol+"][0]:", trackerObj[currentRowCol][0],"trackerObj[nextRowCol:"+nextRowCol+"][0]:",trackerObj[nextRowCol][0], "trackerObj[currentRowCol:"+currentRowCol+"][1]:",trackerObj[currentRowCol][1], "trackerObj[nextRowCol:"+nextRowCol+"][1]:",trackerObj[nextRowCol][1]);
+								// console.log("nSCols found 2 candidate values at",currentRowCol,"and",nextRowCol)
+								// console.log("trackerObj[currentRowCol:"+currentRowCol+"][0]:", trackerObj[currentRowCol][0],"trackerObj[nextRowCol:"+nextRowCol+"][0]:",trackerObj[nextRowCol][0], "trackerObj[currentRowCol:"+currentRowCol+"][1]:",trackerObj[currentRowCol][1], "trackerObj[nextRowCol:"+nextRowCol+"][1]:",trackerObj[nextRowCol][1]);
 								// if so, loop through the cells in this column again
 								for (var rowRemoval = 0; rowRemoval <= 8; rowRemoval++) {
 									// and remove the potentialSubset values as candidates for other cells within that column
-									var removalRowCol = "r" + row + "c" + rowRemoval;
+									var removalRowCol = "r" + rowRemoval + "c" + col;
 									// first, find a cell that has more than two possible candidate values
 									if (trackerObj[removalRowCol].length > 2) {
 										// then check that both values in potentialSubset are present in removalRowCol
 										if (trackerObj[removalRowCol].indexOf(potentialSubset[0]) !== -1 && trackerObj[removalRowCol].indexOf(potentialSubset[1]) !== -1 ) {
-											sdk.printTrackerObj();
-											console.log("going to remove Naked Subset", potentialSubset, "at:",removalRowCol);
+											// sdk.printTrackerObj();
+											// console.log("nSCols is going to remove Naked Subset", potentialSubset, "at:",removalRowCol);
 											trackerObj[removalRowCol] = sdk.trackerObjRemove(removalRowCol, potentialSubset);
-											console.log("going to run trackerObjUpdate because candidates were removed");
+											// console.log("nSCols is going to run trackerObjUpdate because candidates were removed");
 											sdk.trackerObjUpdate();
 										}
 									}
@@ -209,25 +213,62 @@ function nakedSubset() {
 
 // This is the heart of the program. Continue looping through all of the nonets until all of
 // them have been filled in.
-function solveIt() {
+function elimSolveIt() {
 	var passes = 0;
-	while (nonetsStatus.indexOf(false) !== -1 && passes < 16) {
-		console.log("Trying Sole Candidate approach.")
+	while (nonetsStatus.indexOf(false) !== -1 && passes < 6) {
+		// console.log("Trying Sole Candidate approach.")
 		sdk.loopNonets(soleCandidate);
-		sdk.printBoardConsole();
+		// sdk.printBoardConsole();
 		sdk.loopNonets(uniqueCandidate);
-		sdk.printBoardConsole();
+		// sdk.printBoardConsole();
 		sdk.trackerObjUpdate();
 		nakedSubset();
-		console.log("finished nakedSubset");
-		sdk.printBoardConsole();
-		console.log("starting trackerObjCheck");
+		// console.log("finished nakedSubset");
+		// sdk.printBoardConsole();
+		// console.log("starting trackerObjCheck");
 		sdk.trackerObjCheck();
-		console.log("finished trackerObjCheck");
-		sdk.printBoardConsole();
+		// console.log("finished trackerObjCheck");
+		// sdk.printBoardConsole();
 		passes++;
 	}
+	sdk.printBoardConsole();
 	sdk.printBoard();
+	function errorCheckBoard() {
+		var nonetErrorFlag = false;
+		for (var i = 0; i <= 8; i++) {
+			var nonetValuesGathered = sdk.extractNonetUnique(i);
+			for (var j = 1; j <= 9; j++) {
+				if (nonetValuesGathered.indexOf(j) === -1) {
+					console.log("Error found in nonet", i + " (missing "+ j + "):", nonetValuesGathered);
+					nonetErrorFlag = true;
+				}
+			}
+		}
+		if (nonetErrorFlag === false) console.log("No errors found in nonets.");
+		var rowErrorFlag = false;
+		for (var k = 0; k <= 8; k++) {
+			var rowValuesGathered = sdk.extractRow(k);
+			for (var l = 1; l <= 9; l++) {
+				if (rowValuesGathered.indexOf(l) === -1) {
+					console.log("Error found in row", k + " (missing "+ l + "):", rowValuesGathered);
+					rowErrorFlag = true;
+				}
+			}
+		}
+		if (rowErrorFlag === false) console.log("No errors found in rows.");
+		var colErrorFlag = false;
+		for (var m = 0; m <= 8; m++) {
+			var colValuesGathered = sdk.extractCol(m);
+			for (var n = 1; n <= 9; n++) {
+				if (colValuesGathered.indexOf(n) === -1) {
+					console.log("Error found in col", m + " (missing "+ n + "):", colValuesGathered);
+					colErrorFlag = true;
+				}
+			}
+		}
+		if (colErrorFlag === false) console.log("No errors found in columns.");
+	}
+	errorCheckBoard();
 }
 
 /* ====================================================================================================================
@@ -253,10 +294,16 @@ function exportSDK() {
 		    var valueToOutput;
 			for (var row = 0; row <= 8; row++) {
 				for (var col = 0; col <= 8; col++) {
-					valueToOutput = board[row][col];
-					rowColQuery = "#r" + row + "c" + col;
+					valueToOutput = elimBoard[row][col];
+					rowColQuery = "#elim_r" + row + "c" + col;
 					output = document.querySelector(rowColQuery);
 					output.textContent = valueToOutput;
+					var input = elimForm.elements["elim_input" + row + col].value
+					if (input == valueToOutput) {
+						output.className = "given";
+					} else {
+						output.className = "notgiven";
+					}
 				}
 			}
 		},
@@ -264,7 +311,7 @@ function exportSDK() {
 		// printBoardConsole prints the board to the console. It's only used for testing and development of the program.
 		printBoardConsole: function() {
 			for (var i = 0; i <= 8; i++) {
-				console.log(board[i].join("\t"));
+				console.log(elimBoard[i].join("\t"));
 			}
 		},
 
@@ -286,7 +333,7 @@ function exportSDK() {
 				for (var row = startRow; row <= startRow + 2; row++) {
 					for (var col = startCol; col <= startCol + 2; col++) {
 						// if cell has a value, set trackerObj key/value pair to []
-						if (board[row][col] !== null) {
+						if (elimBoard[row][col] !== null) {
 							trackerObj["r" + row + "c" + col] = [];
 						} else {
 							// if cell is null, gather row/col/nonet values into uniqueValues
@@ -331,8 +378,8 @@ function exportSDK() {
 					var valueToWrite = trackerObj[keys][0];
 					var row = keys[1];
 					var col = keys[3];
-					console.log("going to write",valueToWrite,"to row",row,"col",col,"because there was a single candidate value there");
-					board[row][col] = valueToWrite;
+					// console.log("going to write",valueToWrite,"to row",row,"col",col,"because there was a single candidate value there");
+					elimBoard[row][col] = valueToWrite;
 				}
 			}
 			this.trackerObjUpdate();
@@ -347,7 +394,7 @@ function exportSDK() {
 
 		// loopNonets loops sequentially through all 9 nonets.
 		loopNonets: function(func) {
-			console.log("in loopNonets with parameter func =",func);
+			// console.log("in loopNonets with parameter func =",func);
 			for (var nonet = 0; nonet <= 8; nonet++) {
 				if (nonetsStatus[nonet] === false) {
 					this.loopNonetCells(nonet, func);
@@ -363,10 +410,11 @@ function exportSDK() {
 			var startCol = this.getNonetXY(nonet)[1];
 			for (var row = startRow; row <= startRow + 2; row++) {
 				for (var col = startCol; col <= startCol + 2; col++) {
-					if (board[row][col] === null) {
+					if (elimBoard[row][col] === null) {
 						var funcVal = func(nonet,row,col);
 						if (funcVal) {
-							board[row][col] = funcVal;
+							// console.log("going to insert",funcVal,"at row",row,"col",col,"using func =",func.name);
+							elimBoard[row][col] = funcVal;
 						}
 					}
 				}
@@ -378,8 +426,8 @@ function exportSDK() {
 			var returnArr = [];
 			for (var row = this.getNonetXY(nonet)[0]; row <= this.getNonetXY(nonet)[0] + 2; row++) {
 				for (var col = this.getNonetXY(nonet)[1]; col <= this.getNonetXY(nonet)[1] + 2; col++) {
-					if (board[row][col] !== null) { // && returnArr.indexOf(board[row][col]) === -1
-						returnArr.push(board[row][col]);
+					if (elimBoard[row][col] !== null) { // && returnArr.indexOf(elimBoard[row][col]) === -1
+						returnArr.push(elimBoard[row][col]);
 					}
 				}
 			}
@@ -391,7 +439,7 @@ function exportSDK() {
 			var returnArr = [];
 			for (var row = this.getNonetXY(nonet)[0]; row <= this.getNonetXY(nonet)[0] + 2; row++) {
 				for (var col = this.getNonetXY(nonet)[1]; col <= this.getNonetXY(nonet)[1] + 2; col++) {
-					returnArr.push(board[row][col]);
+					returnArr.push(elimBoard[row][col]);
 				}
 			}
 			return returnArr;
@@ -401,8 +449,8 @@ function exportSDK() {
 		extractRow: function(currentRow) {
 			var returnArr = [];
 			for (var col = 0; col <= 8; col++) {
-				if (board[currentRow][col] !== null) { // && returnArr.indexOf(board[currentRow][col]) === -1
-					returnArr.push(board[currentRow][col]);
+				if (elimBoard[currentRow][col] !== null) { // && returnArr.indexOf(elimBoard[currentRow][col]) === -1
+					returnArr.push(elimBoard[currentRow][col]);
 				}
 			}
 			return returnArr;
@@ -412,8 +460,8 @@ function exportSDK() {
 		extractCol: function(currentCol) {
 			var returnArr = [];
 			for (var row = 0; row <= 8; row++) {
-				if (board[row][currentCol] !== null) { // && returnArr.indexOf(board[row][currentCol]) === -1
-					returnArr.push(board[row][currentCol]);
+				if (elimBoard[row][currentCol] !== null) { // && returnArr.indexOf(elimBoard[row][currentCol]) === -1
+					returnArr.push(elimBoard[row][currentCol]);
 				}
 			}
 			return returnArr;
@@ -457,7 +505,7 @@ function exportSDK() {
 
 };
 
-function resetPlaySpace() {
+function elimResetPlaySpace() {
 	exportSDK();
 	var currentRow;
 	var currentCol;
@@ -465,7 +513,7 @@ function resetPlaySpace() {
 	nonetsStatus = [false, false, false, false, false, false, false, false, false];
 	trackerObj = {};
 	sdk.trackerObjDefaults();
-	board = [
+	elimBoard = [
 			 [null,null,null,null,null,null,null,null,null,],
 			 [null,null,null,null,null,null,null,null,null,],
 			 [null,null,null,null,null,null,null,null,null,],
@@ -476,23 +524,24 @@ function resetPlaySpace() {
 			 [null,null,null,null,null,null,null,null,null,],
 			 [null,null,null,null,null,null,null,null,null,],
 			];
-	submitPuzzle.disabled = false;
-	boardToDisplay.style.display = "none";
+	elimSubmitPuzzle.disabled = false;
+	// console.log("going to disable elimBoardToDisplay ",elimBoardToDisplay);
+	elimBoardToDisplay.style.display = "none";
 }
 
-var form = document.querySelector("form");
-var boardToDisplay = document.getElementById("board");
+var elimForm = document.getElementById("elim_form");
+var elimBoardToDisplay = document.getElementById("elim_board");
 var cellSubmitted;
 var cellValue;
-var submitPuzzle = document.getElementById("submitPuzzle");
-submitPuzzle.addEventListener("click", function(event) {
+var elimSubmitPuzzle = document.getElementById("elim_submitPuzzle");
+elimSubmitPuzzle.addEventListener("click", function(event) {
 	boardSubmitted = [];
 	exportSDK();
 	for (var formRow = 0; formRow <= 8; formRow++) {
 		var rowSubmitted = [];
 		for (var formCol = 0; formCol <= 8; formCol++) {
-			cellSubmitted = "input" + formRow + formCol;
-			cellValue = form.elements[cellSubmitted].value;
+			cellSubmitted = "elim_input" + formRow + formCol;
+			cellValue = elimForm.elements[cellSubmitted].value;
 			if (cellValue.length === 0) {
 				cellValue = null;
 			} else {
@@ -503,85 +552,109 @@ submitPuzzle.addEventListener("click", function(event) {
 		boardSubmitted.push(rowSubmitted);
 	}
 	// event.preventDefault(); // This line was only needed when the button was a "submit" button. It has been changed to a "button" button.
-	board = boardSubmitted.slice();
-	boardToDisplay.style.display = "block";
-	solveIt();
-	submitPuzzle.disabled = true;
+	elimBoard = boardSubmitted.slice();
+	elimBoardToDisplay.style.display = "block";
+	elimSolveIt();
+	elimSubmitPuzzle.disabled = true;
 }, false); // close the form.addEventListener anonymous function
 
-var resetPuzzle = document.getElementById("resetPuzzle");
-resetPuzzle.addEventListener("click", function(event) {
-	resetPlaySpace();
-	form.elements.input00.focus();
+var elimResetPuzzle = document.getElementById("elim_resetPuzzle");
+elimResetPuzzle.addEventListener("click", function(event) {
+	// console.log("elimResetPuzzle has been clicked");
+	elimResetPlaySpace();
+	elimForm.elements.elim_input00.focus();
 	sdk.printBoard();
 });
 
-var fillInPuzzle = document.getElementById("fillInPuzzle");
-fillInPuzzle.addEventListener("click", function(event) {
-	resetPlaySpace();
-	// "evil" sample board
-	var sampleBoard =	
+var elimFillInPuzzleEasy = document.getElementById("elim_fillInPuzzleEasy");
+elimFillInPuzzleEasy.addEventListener("click", function(event) {
+	elimResetPlaySpace();
+	elimFillInSpecifiedPuzzle("easy");
+});
 
-						// // Evil-level sample board from websudoku.com
-						// [
-						// 	[8,		null,	null,	null,	null,	3,		5,		null,	null	],
-						// 	[null,	3,		7,		null,	null,	null,	null,	null,	null	],
-						// 	[null,	6,		null,	2,		9,		null,	null,	null,	1		],
+var elimFillInPuzzleMedium = document.getElementById("elim_fillInPuzzleMedium");
+elimFillInPuzzleMedium.addEventListener("click", function(event) {
+	elimResetPlaySpace();
+	elimFillInSpecifiedPuzzle("medium");
+});
 
-						// 	[null,	null,	1,		null,	2,		null,	null,	null,	null	],
-						// 	[null,	7,		null,	5,		null,	1,		null,	6,		null	],
-						// 	[null,	null,	null,	null,	6,		null,	8,		null,	null	],
+var elimFillInPuzzleHard = document.getElementById("elim_fillInPuzzleHard");
+elimFillInPuzzleHard.addEventListener("click", function(event) {
+	elimResetPlaySpace();
+	elimFillInSpecifiedPuzzle("hard");
+});
 
-						// 	[7,		null,	null,	null,	3,		9,		null,	5,		null	],
-						// 	[null,	null,	null,	null,	null,	null,	1,		7,		null	],
-						// 	[null,	null,	2,		8,		null,	null,	null,	null,	9		]
-						// ];
+function elimFillInSpecifiedPuzzle(puzzleType) {
+	if (puzzleType === "easy") {
+		var sampleBoard =
+			// Easy-level sample board from websudoku.com
+			[
+			[5,		null,	null,	8,		null,	null,	null,	7,		1		],
+			[1,		null,	null,	2,		null,	6,		9,		null,	4		],
+			[2,		8,		null,	null,	1,		null,	null,	null,	null	],
 
-						// Hard-level board from websudoku.com
-						[
-						[null,	7,		null,	null,	9,		null,	3,		null,	null	],
-						[null,	null,	null,	null,	8,		2,		null,	5,		4		],
-						[1,		5,		null,	null,	null,	null,	8,		null,	null	],
+			[null,	1,		8,		null,	null,	null,	null,	null,	7		],
+			[null,	4,		null,	null,	null,	null,	null,	6,		null	],
+			[9,		null,	null,	null,	null,	null,	5,		4,		null	],
 
-						[9,		null,	null,	null,	null,	4,		1,		2,		null	],
-						[null,	null,	null,	null,	null,	null,	null,	null,	null	],
-						[null,	3,		1,		9,		null,	null,	null,	null,	7		],
+			[null,	null,	null,	null,	4,		null,	null,	2,		5		],
+			[4,		null,	6,		1,		null,	2,		null,	null,	9		],
+			[7,		3,		null,	null,	null,	9,		null,	null,	6		]
+			];
+	} else if (puzzleType === "medium") {
+		var sampleBoard =
+			// Medium-level sample board from websudoku.com
+			[	
+			[1,		null,	null,	null,	4,		null,	8,		null,	2		],
+			[2,		null,	null,	null,	null,	1,		null,	null,	null	],
+			[null,	null,	7,		3,		null,	null,	4,		1,		null	],
 
-						[null,	null,	9,		null,	null,	null,	null,	3,		8		],
-						[2,		1,		null,	8,		4,		null,	null,	null,	null	],
-						[null,	null,	7,		null,	3,		null,	null,	6,		null	]
-						];
+			[null,	null,	2,		null,	1,		null,	null,	null,	6		],
+			[null,	4,		null,	null,	8,		null,	null,	5,		null	],
+			[3,		null,	null,	null,	6,		null,	2,		null,	null	],
 
-// Medium-level board from websudoku.com
-// var board = [	[1,		null,	null,	null,	4,		null,	8,		null,	2		],
-// 				[2,		null,	null,	null,	null,	1,		null,	null,	null	],
-// 				[null,	null,	7,		3,		null,	null,	4,		1,		null	],
+			[null,	2,		5,		null,	null,	7,		6,		null,	null	],
+			[null,	null,	null,	6,		null,	null,	null,	null,	4		],
+			[7,		null,	6,		null,	3,		null,	null,	null,	8		]	
+			];
+	} else if (puzzleType === "hard") {
+		var sampleBoard =
+			// Hard-level sample board from websudoku.com
+			[
+			[null,	7,		null,	null,	9,		null,	3,		null,	null	],
+			[null,	null,	null,	null,	8,		2,		null,	5,		4		],
+			[1,		5,		null,	null,	null,	null,	8,		null,	null	],
 
-// 				[null,	null,	2,		null,	1,		null,	null,	null,	6		],
-// 				[null,	4,		null,	null,	8,		null,	null,	5,		null	],
-// 				[3,		null,	null,	null,	6,		null,	2,		null,	null	],
+			[9,		null,	null,	null,	null,	4,		1,		2,		null	],
+			[null,	null,	null,	null,	null,	null,	null,	null,	null	],
+			[null,	3,		1,		9,		null,	null,	null,	null,	7		],
 
-// 				[null,	2,		5,		null,	null,	7,		6,		null,	null	],
-// 				[null,	null,	null,	6,		null,	null,	null,	null,	4		],
-// 				[7,		null,	6,		null,	3,		null,	null,	null,	8		]	];
+			[null,	null,	9,		null,	null,	null,	null,	3,		8		],
+			[2,		1,		null,	8,		4,		null,	null,	null,	null	],
+			[null,	null,	7,		null,	3,		null,	null,	6,		null	]
+			];
+	} else if (puzzleType === "evil") {
+		var sampleBoard =
+			// Evil-level sample board from websudoku.com
+			[
+				[8,		null,	null,	null,	null,	3,		5,		null,	null	],
+				[null,	3,		7,		null,	null,	null,	null,	null,	null	],
+				[null,	6,		null,	2,		9,		null,	null,	null,	1		],
 
-// Easy-level board from websudoku.com
-// var board = [	[5,		null,	null,	8,		null,	null,	null,	7,		1		],
-// 				[1,		null,	null,	2,		null,	6,		9,		null,	4		],
-// 				[2,		8,		null,	null,	1,		null,	null,	null,	null	],
+				[null,	null,	1,		null,	2,		null,	null,	null,	null	],
+				[null,	7,		null,	5,		null,	1,		null,	6,		null	],
+				[null,	null,	null,	null,	6,		null,	8,		null,	null	],
 
-// 				[null,	1,		8,		null,	null,	null,	null,	null,	7		],
-// 				[null,	4,		null,	null,	null,	null,	null,	6,		null	],
-// 				[9,		null,	null,	null,	null,	null,	5,		4,		null	],
-
-// 				[null,	null,	null,	null,	4,		null,	null,	2,		5		],
-// 				[4,		null,	6,		1,		null,	2,		null,	null,	9		],
-// 				[7,		3,		null,	null,	null,	9,		null,	null,	6		]	];
+				[7,		null,	null,	null,	3,		9,		null,	5,		null	],
+				[null,	null,	null,	null,	null,	null,	1,		7,		null	],
+				[null,	null,	2,		8,		null,	null,	null,	null,	9		]
+			];
+	}
 
 	for (var formRow = 0; formRow <= 8; formRow++) {
 		for (var formCol = 0; formCol <= 8; formCol++) {
-			formRowCol = "input" + formRow + formCol;
-			form.elements[formRowCol].value = sampleBoard[formRow][formCol];
+			formRowCol = "elim_input" + formRow + formCol;
+			elimForm.elements[formRowCol].value = sampleBoard[formRow][formCol];
 		}
 	}
-});
+}

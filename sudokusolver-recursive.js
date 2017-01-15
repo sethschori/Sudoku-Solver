@@ -166,11 +166,13 @@ function printBoard() {
 	for (var row = 0; row <= 8; row++) {
 		for (var col = 0; col <= 8; col++) {
 			valueToOutput = board[row][col].value;
-			rowColQuery = "#r" + row + "c" + col;
+			rowColQuery = "#recur_r" + row + "c" + col;
 			output = document.querySelector(rowColQuery);
 			output.textContent = valueToOutput;
 			if (board[row][col].given) {
 				output.className = "given";
+			} else {
+				output.className = "notgiven";
 			}
 		}
 	}
@@ -202,16 +204,16 @@ function resetPlaySpace() {
 }
 
 var form = document.querySelector("form");
-var boardToDisplay = document.getElementById("board");
+var boardToDisplay = document.getElementById("recur_board");
 var cellSubmitted;
 var cellValue;
-var submitPuzzle = document.getElementById("submitPuzzle");
+var submitPuzzle = document.getElementById("recur_submitPuzzle");
 submitPuzzle.addEventListener("click", function(event) {
-	boardSubmitted = [];
+	var boardSubmitted = [];
 	for (var formRow = 0; formRow <= 8; formRow++) {
 		var rowSubmitted = [];
 		for (var formCol = 0; formCol <= 8; formCol++) {
-			cellSubmitted = "input" + formRow + formCol;
+			cellSubmitted = "recur_input" + formRow + formCol;
 			cellValue = form.elements[cellSubmitted].value;
 			if (cellValue.length === 0) {
 				cellValue = null;
@@ -229,82 +231,102 @@ submitPuzzle.addEventListener("click", function(event) {
 	submitPuzzle.disabled = true;
 }, false); // close the form.addEventListener anonymous function
 
-var resetPuzzle = document.getElementById("resetPuzzle");
+var resetPuzzle = document.getElementById("recur_resetPuzzle");
 resetPuzzle.addEventListener("click", function(event) {
 	resetPlaySpace();
-	form.elements.input00.focus();
+	form.elements.recur_input00.focus();
 	printBoard();
 });
 
-var fillInPuzzle = document.getElementById("fillInPuzzle");
-fillInPuzzle.addEventListener("click", function(event) {
+var recurFillInPuzzleEasy = document.getElementById("recur_fillInPuzzleEasy");
+recurFillInPuzzleEasy.addEventListener("click", function(event) {
 	resetPlaySpace();
-	var sampleBoard =	
+	recurFillInSpecifiedPuzzle("easy");
+});
 
-						// // Evil-level sample board from websudoku.com
-						[
-							[8,		null,	null,	null,	null,	3,		5,		null,	null	],
-							[null,	3,		7,		null,	null,	null,	null,	null,	null	],
-							[null,	6,		null,	2,		9,		null,	null,	null,	1		],
+var recurFillInPuzzleMedium = document.getElementById("recur_fillInPuzzleMedium");
+recurFillInPuzzleMedium.addEventListener("click", function(event) {
+	resetPlaySpace();
+	recurFillInSpecifiedPuzzle("medium");
+});
 
-							[null,	null,	1,		null,	2,		null,	null,	null,	null	],
-							[null,	7,		null,	5,		null,	1,		null,	6,		null	],
-							[null,	null,	null,	null,	6,		null,	8,		null,	null	],
+var recurFillInPuzzleHard = document.getElementById("recur_fillInPuzzleHard");
+recurFillInPuzzleHard.addEventListener("click", function(event) {
+	resetPlaySpace();
+	recurFillInSpecifiedPuzzle("hard");
+});
 
-							[7,		null,	null,	null,	3,		9,		null,	5,		null	],
-							[null,	null,	null,	null,	null,	null,	1,		7,		null	],
-							[null,	null,	2,		8,		null,	null,	null,	null,	9		]
-						];
+function recurFillInSpecifiedPuzzle(puzzleType) {
+	if (puzzleType === "easy") {
+		var sampleBoard =
+			// Easy-level sample board from websudoku.com
+			[
+			[5,		null,	null,	8,		null,	null,	null,	7,		1		],
+			[1,		null,	null,	2,		null,	6,		9,		null,	4		],
+			[2,		8,		null,	null,	1,		null,	null,	null,	null	],
 
-						// Hard-level board from websudoku.com
-						// [
-						// [null,	7,		null,	null,	9,		null,	3,		null,	null	],
-						// [null,	null,	null,	null,	8,		2,		null,	5,		4		],
-						// [1,		5,		null,	null,	null,	null,	8,		null,	null	],
+			[null,	1,		8,		null,	null,	null,	null,	null,	7		],
+			[null,	4,		null,	null,	null,	null,	null,	6,		null	],
+			[9,		null,	null,	null,	null,	null,	5,		4,		null	],
 
-						// [9,		null,	null,	null,	null,	4,		1,		2,		null	],
-						// [null,	null,	null,	null,	null,	null,	null,	null,	null	],
-						// [null,	3,		1,		9,		null,	null,	null,	null,	7		],
+			[null,	null,	null,	null,	4,		null,	null,	2,		5		],
+			[4,		null,	6,		1,		null,	2,		null,	null,	9		],
+			[7,		3,		null,	null,	null,	9,		null,	null,	6		]
+			];
+	} else if (puzzleType === "medium") {
+		var sampleBoard =
+			// Medium-level sample board from websudoku.com
+			[	
+			[1,		null,	null,	null,	4,		null,	8,		null,	2		],
+			[2,		null,	null,	null,	null,	1,		null,	null,	null	],
+			[null,	null,	7,		3,		null,	null,	4,		1,		null	],
 
-						// [null,	null,	9,		null,	null,	null,	null,	3,		8		],
-						// [2,		1,		null,	8,		4,		null,	null,	null,	null	],
-						// [null,	null,	7,		null,	3,		null,	null,	6,		null	]
-						// ];
+			[null,	null,	2,		null,	1,		null,	null,	null,	6		],
+			[null,	4,		null,	null,	8,		null,	null,	5,		null	],
+			[3,		null,	null,	null,	6,		null,	2,		null,	null	],
 
-						// Medium-level board from websudoku.com
-						// [
-						// [1,		null,	null,	null,	4,		null,	8,		null,	2		],
-						// [2,		null,	null,	null,	null,	1,		null,	null,	null	],
-						// [null,	null,	7,		3,		null,	null,	4,		1,		null	],
+			[null,	2,		5,		null,	null,	7,		6,		null,	null	],
+			[null,	null,	null,	6,		null,	null,	null,	null,	4		],
+			[7,		null,	6,		null,	3,		null,	null,	null,	8		]	
+			];
+	} else if (puzzleType === "hard") {
+		var sampleBoard =
+			// Hard-level sample board from websudoku.com
+			[
+			[null,	7,		null,	null,	9,		null,	3,		null,	null	],
+			[null,	null,	null,	null,	8,		2,		null,	5,		4		],
+			[1,		5,		null,	null,	null,	null,	8,		null,	null	],
 
-						// [null,	null,	2,		null,	1,		null,	null,	null,	6		],
-						// [null,	4,		null,	null,	8,		null,	null,	5,		null	],
-						// [3,		null,	null,	null,	6,		null,	2,		null,	null	],
+			[9,		null,	null,	null,	null,	4,		1,		2,		null	],
+			[null,	null,	null,	null,	null,	null,	null,	null,	null	],
+			[null,	3,		1,		9,		null,	null,	null,	null,	7		],
 
-						// [null,	2,		5,		null,	null,	7,		6,		null,	null	],
-						// [null,	null,	null,	6,		null,	null,	null,	null,	4		],
-						// [7,		null,	6,		null,	3,		null,	null,	null,	8		]	
-						// ];
+			[null,	null,	9,		null,	null,	null,	null,	3,		8		],
+			[2,		1,		null,	8,		4,		null,	null,	null,	null	],
+			[null,	null,	7,		null,	3,		null,	null,	6,		null	]
+			];
+	} else if (puzzleType === "evil") {
+		var sampleBoard =
+			// Evil-level sample board from websudoku.com
+			[
+				[8,		null,	null,	null,	null,	3,		5,		null,	null	],
+				[null,	3,		7,		null,	null,	null,	null,	null,	null	],
+				[null,	6,		null,	2,		9,		null,	null,	null,	1		],
 
-						// Easy-level board from websudoku.com
-						// [
-						// 	[5,		null,	null,	8,		null,	null,	null,	7,		1		],
-						// 	[1,		null,	null,	2,		null,	6,		9,		null,	4		],
-						// 	[2,		8,		null,	null,	1,		null,	null,	null,	null	],
+				[null,	null,	1,		null,	2,		null,	null,	null,	null	],
+				[null,	7,		null,	5,		null,	1,		null,	6,		null	],
+				[null,	null,	null,	null,	6,		null,	8,		null,	null	],
 
-						// 	[null,	1,		8,		null,	null,	null,	null,	null,	7		],
-						// 	[null,	4,		null,	null,	null,	null,	null,	6,		null	],
-						// 	[9,		null,	null,	null,	null,	null,	5,		4,		null	],
-
-						// 	[null,	null,	null,	null,	4,		null,	null,	2,		5		],
-						// 	[4,		null,	6,		1,		null,	2,		null,	null,	9		],
-						// 	[7,		3,		null,	null,	null,	9,		null,	null,	6		]	
-						// ];
+				[7,		null,	null,	null,	3,		9,		null,	5,		null	],
+				[null,	null,	null,	null,	null,	null,	1,		7,		null	],
+				[null,	null,	2,		8,		null,	null,	null,	null,	9		]
+			];
+	}
 
 	for (var formRow = 0; formRow <= 8; formRow++) {
 		for (var formCol = 0; formCol <= 8; formCol++) {
-			formRowCol = "input" + formRow + formCol;
+			formRowCol = "recur_input" + formRow + formCol;
 			form.elements[formRowCol].value = sampleBoard[formRow][formCol];
 		}
 	}
-});
+}
