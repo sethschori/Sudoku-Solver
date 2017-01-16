@@ -1,6 +1,7 @@
 <html>
 	<head>
 		<link rel="stylesheet" href="css/style.css">
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 	</head>
 	<body>
 		<div id="content-wrapper">
@@ -682,7 +683,7 @@
 			<ul>
 				<li><strong>Sole Candidate:</strong> Given a blank cell on the board, check whether eight values are already present in the nonet, row, and column. If so, the "missing" ninth value must be the solution to that cell.</li>
 				<li><strong>Unique Candidate:</strong> Check whether there is a number which -- by virtue of being in other columns and rows that intersect the other blank cells in the target cell's nonet -- can only be valid in that cell. If so, that must be the solution to that cell.</li>
-				<li><strong>Naked Subset:</strong> This approach rules out potential candidate values for a given cell by checking whether there are two pairs of the same candidate values that appear for two different cells within a given row or column. If so, then those two values must be placed in those two cells and those values can be removed as possible candidate values for other cells within the given row or column.</li>
+				<li><strong>Naked Subset:</strong> This approach goes through the board, one row at a time, and determines all the potential values which could be filled in for each of the blank cells. Next, it checks all of the values for that row and determines if there are the same two potential values (e.g. 1, 4) which appear for two blank cells. If so, that means that those two values (1, 4) must be used in those two cells and can't appear in another cell in that row. Therefore, if there are other cells in that row whose potential values include that pair of values (e.g. 1, 2, 4, 7), it removes the pair of values from those cells (e.g. it would remove 1, 4, which would leave 2, 7 as the remaining options). As it removes potential values from each cell, the program checks whether there are any cells which have one value left, and if so that one must be the solution for that cell. Once all rows have been checked, then the process is repeated for all of the columns.</li>
 			</ul>
 
 			<p>See the code for this program at: <a href="https://github.com/sethschori/Sudoku-Solver">github.com/sethschori/Sudoku-Solver</a>.</p>

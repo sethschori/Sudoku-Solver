@@ -4,14 +4,14 @@
 
 * {
 	box-sizing: border-box;
+	font-family: 'Open Sans', sans-serif;
 }
 
 body {
-	font-family: sans-serif;
-	color: black;
+	color: #333;
 	padding: 20px;
-	line-height: 1.5em;
-	background-color: #ccc;
+	line-height: 1.7em;
+	background-color: white;
 }
 
 h2 {
@@ -19,23 +19,17 @@ h2 {
 	margin-bottom: 10px;
 }
 
-.table-outer,
-tr {
-	margin: 0px;
-	border: 0px;
-	padding: 0px;	
-	border-collapse: collapse;
-	border-spacing: 0px;
+p, ul, li {
+	font-size: .95em;
 }
 
-.table-inner,
-tr {
-	margin: 0px;
-	border: 0px;
-	padding: 0px;	
-	border-collapse: collapse;
-	border-spacing: 0px;
+li {
+	margin-bottom: 20px;
 }
+
+/* ================================= 
+  Layout Div Styles
+==================================== */
 
 #content-wrapper {
 	width: 80%;
@@ -66,9 +60,36 @@ tr {
 	width: 375px;
 }
 
+.buttons {		/* The .buttons class is a button not a div. */
+	margin: 0px 0px 5px 0px;
+	font-size: .95em;
+}
+
+/* ================================= 
+  Table Styles
+==================================== */
+
+.table-outer,
+tr {
+	margin: 0px;
+	border: 0px;
+	padding: 0px;	
+	border-collapse: collapse;
+	border-spacing: 0px;
+}
+
+.table-inner,
+tr {
+	margin: 0px;
+	border: 0px;
+	padding: 0px;	
+	border-collapse: collapse;
+	border-spacing: 0px;
+}
+
 .table-outer td {
 	margin: 0px;
-	border: 2px solid black;
+	border: 2px solid #333;
 	padding: 0px;
 	border-collapse: collapse;
 	border-spacing: 0px;
@@ -78,7 +99,7 @@ tr {
 
 .table-inner td {
 	margin: 0px;
-	border: 1px solid black;
+	border: 1px solid #333;
 	padding: 0px;
 	width: 30px;
 	height: 30px;
@@ -87,6 +108,18 @@ tr {
 	text-align: center;
 	font-size: .95em;
 }
+
+.given {
+	background-color: #d9d9d9;
+}
+
+.notgiven {
+	background-color: white;
+}
+
+/* ================================= 
+  Input and Button Styles
+==================================== */
 
 input {
 	border: 0px;
@@ -104,22 +137,24 @@ input::-webkit-inner-spin-button {
     /* display: none; <- Crashes Chrome on hover */
     -webkit-appearance: none;
     margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
-}
-
-.buttons {
-	margin: 0px 0px 5px 0px;
-	font-size: .95em;
-}
+}   /* NOTE: I borrowed this CSS fix for removing the arrows. I forget where I borrowed it from. Sorry! */
 
 button {
 	margin-top: 10px;
-	margin-right: 5px;
+	margin-left: 5px;
+	background-color: white;
+	border-color: #999;
+	border-radius: 5px;
+	border-width: 1px; 
+	border-style: solid;
+	padding: 5px 10px;
 }
 
 #elim_submitPuzzle,
 #recur_submitPuzzle {
 	color: white;
 	background-color: green;
+	border-color: green;
 }
 
 #elim_submitPuzzle,
@@ -127,26 +162,8 @@ button {
 #elim_resetPuzzle,
 #recur_resetPuzzle {
 	font-size: 1.05em;
-	padding: 5px 20px;
-	border-radius: 7px;
-	letter-spacing: .1em;
+	padding: 10px 20px;
 	margin: 20px 20px 0px 0px;
-}
-
-p, ul, li {
-	font-size: .95em;
-}
-
-li {
-	margin-bottom: 20px;
-}
-
-.given {
-	background-color: #ccc;
-}
-
-.notgiven {
-	background-color: white;
 }
 
 /* ---- Float clearfix ---- */
