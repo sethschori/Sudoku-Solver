@@ -15,8 +15,12 @@ body {
 }
 
 h2 {
-	margin-top: 0px;
-	margin-bottom: 0px;
+	margin-top: 40px;
+	margin-bottom: 10px;
+}
+
+h1, h2 {
+	color: green;
 }
 
 .table-outer,
@@ -107,18 +111,30 @@ input::-webkit-inner-spin-button {
 }
 
 .buttons {
-	margin: 0px;
+	margin: 0px 0px 5px 0px;
 	font-size: .95em;
 }
 
 button {
-	margin-top: 20px;
+	margin-top: 10px;
 	margin-right: 5px;
 }
 
+#elim_submitPuzzle,
+#recur_submitPuzzle {
+	color: white;
+	background-color: green;
+}
+
+#elim_submitPuzzle,
 #recur_submitPuzzle,
-#elim_submitPuzzle {
-	margin-left: 20px;
+#elim_resetPuzzle,
+#recur_resetPuzzle {
+	font-size: 1.05em;
+	padding: 5px 20px;
+	border-radius: 7px;
+	letter-spacing: .2em;
+	margin: 20px 20px 0px 0px;
 }
 
 p, ul, li {

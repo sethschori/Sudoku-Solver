@@ -6,11 +6,16 @@
 		<div id="content-wrapper">
 			<h1>Sudoku Solver</h1>
 
-			<!-- <p>You can visit <a href="http://www.websudoku.com/" target="_blank">websudoku.com</a> to find <a href="http://www.websudoku.com/?level=1" target="_blank">easy</a>, <a href="http://www.websudoku.com/?level=2" target="_blank">medium</a>, <a href="http://www.websudoku.com/?level=3" target="_blank">hard</a>, and <a href="http://www.websudoku.com/?level=4" target="_blank">evil</a> puzzles for solving.</p> -->
+			<p>Sudoku Solver solves Sudoku puzzles using two approaches: 1. trial-and-error computer techniques (recursive) and 2. human-style techniques (process of elimination). Please note that approach #2 only solves relatively easy Sudoku puzzles, as it only employs about a third of the techniques that human players use. As far as I know, approach #1 can solve any Sudoku puzzle.</p>
 
 		<div id="recursive">
 
-			<h2>Resursive Approach</h2>
+			<h2>Resursive Approach (solves any Sudoku puzzle)</h2>
+
+			<div class="buttons">Type in numbers, or choose one of these sample puzzles:
+			<button type="button" id="recur_fillInPuzzleEasy" title="Fill in an easy sample puzzle">Easy</button>
+			<button type="button" id="recur_fillInPuzzleMedium" title="Fill in a medium sample puzzle">Medium</button>
+			<button type="button" id="recur_fillInPuzzleHard" title="Fill in a hard sample puzzle">Hard</button></div>
 
 		<div id="recur_solve-a-puzzle" class="clearfix">
 
@@ -196,11 +201,8 @@
 						</td>
 					</tr>
 				</table>
-				<div class="buttons">Samples: <button type="button" id="recur_fillInPuzzleEasy" title="Fill in an easy sample puzzle">Easy</button>
-				<button type="button" id="recur_fillInPuzzleMedium" title="Fill in a medium sample puzzle">Medium</button>
-				<button type="button" id="recur_fillInPuzzleHard" title="Fill in a hard sample puzzle">Hard</button>
-				<button type="button" id="recur_submitPuzzle" title="Solve the puzzle">Solve</button>
-				<button type="reset" id="recur_resetPuzzle" title="Clear the board and start over">Clear</button></div>
+					<button type="button" id="recur_submitPuzzle" title="Solve the puzzle">Solve</button>
+					<button type="reset" id="recur_resetPuzzle" title="Clear the board and start over">Clear</button>
 			</form>
 		</div>
 
@@ -338,7 +340,12 @@
 </div> <!-- close recursive -->
 		<div id="elimination">
 
-			<h2>Process of Elimination Approach</h2>
+			<h2>Process of Elimination Approach (solves simple Sudoku puzzles)</h2>
+
+			<div class="buttons">Type in numbers, or choose one of these sample puzzles:
+			<button type="button" id="elim_fillInPuzzleEasy" title="Fill in an easy sample puzzle">Easy</button>
+			<button type="button" id="elim_fillInPuzzleMedium" title="Fill in a medium sample puzzle">Medium</button>
+			<button type="button" id="elim_fillInPuzzleHard" title="Fill in a hard sample puzzle">Hard</button></div>
 
 		<div id="elim_solve-a-puzzle" class="clearfix">
 
@@ -524,11 +531,8 @@
 						</td>
 					</tr>
 				</table>
-				<div class="buttons">Samples: <button type="button" id="elim_fillInPuzzleEasy" title="Fill in an easy sample puzzle">Easy</button>
-				<button type="button" id="elim_fillInPuzzleMedium" title="Fill in a medium sample puzzle">Medium</button>
-				<button type="button" id="elim_fillInPuzzleHard" title="Fill in a hard sample puzzle">Hard</button>
-				<button type="button" id="elim_submitPuzzle" title="Solve the puzzle">Solve</button>
-				<button type="reset" id="elim_resetPuzzle" title="Clear the board and start over">Clear</button></div>
+					<button type="button" id="elim_submitPuzzle" title="Solve the puzzle">Solve</button>
+					<button type="reset" id="elim_resetPuzzle" title="Clear the board and start over">Clear</button>
 			</form>
 		</div>
 
@@ -667,19 +671,17 @@
 		<div id = "background-info">
 			<h2>About Sudoku Solver</h2>
 
-			<p>Sudoku Solver solves Sudoku puzzles using two approaches: 1) trial-and-error computer techniques (recursive approach) and 2) human-style techniques (process of elimination approach). Please note that approach #2 only solves relatively easy Sudoku puzzles, as it only contains about one-third of the techniques that human players use. As far as I know, approach #1 can solve any Sudoku puzzle.
+			<p><strong>Why two approaches?</strong> While I was still relatively new to learning programming and JavaScript, I decided to try and build a Sudoku-solving program. At the time, I didn't understand recursion very well, and using human techniques for solving Sudoku seemed like the best approach. I struggled with adding different types of human techniques (see below for descriptions of Sole Candidate, Unique Candidate, and Naked Subset). Eventually, as I came to understand recursion better, I realized that it's much easier for computer programs to solve Sudoku using a recursive trial-and-error approach. Once I tried the recursive approach, I was able to write it fairly quickly and with about half the lines of code that I'd used for the process of elimination approach. As it currently stands, the elimination approach can only solve easy- and medium-level puzzles (as categorized by <a href="http://websudoku.com">websudoku.com</a>). If I increased the number of elimination techniques to the full set that human players use (about triple the number that the program currently has), the program would likely solve all Sudoku puzzles. However, I've stopped building this program, as I've accomplished my goals with this project and want to try other things.</p>
 
-			<p><strong>Why two approaches?</strong> While I was still relatively new to learning programming and JavaScript, I decided to try and build a Sudoku-solving program. At the time, I didn't understand recursion very well, and using human techniques for solving Sudoku seemed like the best approach. I struggled with adding different types of human techniques (see below for descriptions of Sole Candidate, Unique Candidate, and Naked Subset). Eventually, as I came to understand recursion better, I realized that it's much easier for computer programs to solve Sudoku using a recursive trial-and-error approach. Once I tried the recursive approach, I was able to write it fairly quickly and with about half the lines of code that I'd used for the process of elimination approach. As it currently stands, the elimination approach can only solve easy- and medium-level puzzles (as categorized by <a href="http://websudoku.com">websudoku.com</a>). If I tripled the number of elimination approaches, the program would likely solve all Sudoku puzzles. However, I've stopped building this program, as I've accomplished my goals with this project and want to try other things.</p>
+			<p><strong>How the recursive approach works:</strong> With the recursive approach, Sudoku Solver solves Sudoku puzzles by recursively testing multiple possibilities, until it finally lands on the solution. This approach violates the rules that human players are supposed to follow, although I found it much easier to code the recursive approach than the process of elimination approach. To solve the board recursively, the program finds the first blank cell on the board and starts by inserting the number 1 into that cell. It then checks to see whether there is already a number 1 in the row, column, and nonet which contain that blank cell. If there is already a number 1, then the program moves on successively to 2, 3, etc., all the way up to 9. Once it finds a number that doesn't conflict with the associated row, column, and nonet, the program moves on to the next blank cell. The process repeats. If the program cannot find a non-conflicting candidate for the subsequent blank cell, then the program goes back to the previous cell and increments to the next candidate number (e.g. it moves up from 2 to 3). If the program does find a non-conflicting candidate for the subsequent blank cell, then the process continues in the same fashion until there are no more blank cells left to fill.
 
-			<p><strong>How the recursive approach works:</strong> With the recursive approach, Sudoku Solver solves Sudoku puzzles by recursively testing multiple possibilities, until it finally lands on the solution. This approach violates the rules that human players are supposed to follow, although I found it much easier to code the recursive approach than the process of elimination approach. To solve the board recursively, the program finds the first blank cell on the board and starts by inserting the number 1 into that cell. It then checks to see whether there is already a number 1 in the row, column, and nonet which contain that blank cell. If there is already a number 1, then the program moves on successively to 2, 3, etc., all the way up to 9. Once it finds a number that doesn't conflict with the associated row, column, and nonet, the program moves on to the next blank cell. The process repeats. If the program cannot find a non-conflicting candidate for the subsequent blank cell, then the program goes back to the previous cell and increments to the next candidate number (e.g. it moves from number 2 to number 3). If the program does find a non-conflicting candidate for the subsequent blank cell, then the process continues in the same fashion until there are no more blank cells left to fill.
+			<p><strong>How the process of elimination approach works:</strong> With the process of elimination approach, Sudoku Solver solves Sudoku puzzles by following the same rules that human players must follow (i.e. it doesn't use trial-and-error to test multiple possibilities, but instead uses rules of logic). The reasons for employing this elimination approach are 1) it enabled me learn how to translate rules of play into JavaScript functions and 2) in the future this program could be evolved to demonstrate to the user how it solves the board.</p>
 
-			<p><strong>How the process of elimination approach works:</strong> With the process of elimination approach, Sudoku Solver solves Sudoku puzzles by following the same rules that human players must follow (i.e. it doesn't test multiple possibilities, as the recursive approach does). The reasons for taking this approach are 1) it enabled me learn how to translate rules of play into JavaScript functions and 2) in the future I could evolve this program to demonstrate to the user how it is solving the board.</p>
-
-			<p>I am grateful to kristanix.com for the <a href="https://www.kristanix.com/sudokuepic/sudoku-solving-techniques.php">Suduko-solving techniques</a> which I have used in the process of elimination approach, and I have used the techniques' names as the names of functions in the sudokusolver-elimination JavaScript program. Sudoku Solver uses three techniques from kristanix.com to solve the Sudoku puzzles: Sole Candidate, Unique Candidate, and Naked Subset.</p>
+			<p>I am grateful to kristanix.com for the <a href="https://www.kristanix.com/sudokuepic/sudoku-solving-techniques.php">Suduko-solving techniques</a> which I have used in the process of elimination approach, and I have used the techniques' names as the names of functions in the sudokusolver-elimination JavaScript program. Sudoku Solver uses three techniques from kristanix.com to solve Sudoku puzzles: Sole Candidate, Unique Candidate, and Naked Subset.</p>
 
 			<ul>
 				<li><strong>Sole Candidate:</strong> Given a blank cell on the board, check whether eight values are already present in the nonet, row, and column. If so, the "missing" ninth value must be the solution to that cell.</li>
-				<li><strong>Unique Candidate:</strong> Check whether there is a number which -- by virtue of being in other columns and rows on the board -- can only be valid in one cell. If so, that must be the solution to that cell.</li>
+				<li><strong>Unique Candidate:</strong> Check whether there is a number which -- by virtue of being in other columns and rows that intersect the other blank cells in the target cell's nonet -- can only be valid in that cell. If so, that must be the solution to that cell.</li>
 				<li><strong>Naked Subset:</strong> This approach rules out potential candidate values for a given cell by checking whether there are two pairs of the same candidate values that appear for two different cells within a given row or column. If so, then those two values must be placed in those two cells and those values can be removed as possible candidate values for other cells within the given row or column.</li>
 			</ul>
 
